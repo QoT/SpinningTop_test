@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>atlas</key>
+	<array/>
+	<key>include</key>
+	<string>MimiLandManager.plist</string>
+	<key>_backgroundmusic</key>
+	<string>MENU .caf</string>
+	<key>buttonclick</key>
+	<string>CLIC MENU.caf</string>
+	<key>fontname</key>
+	<string>Market Felt</string>
+	<key>fontsize</key>
+	<integer>30</integer>
+	<key>role</key>
+	<string>mainlayer</string>
+	<key>particlesystemmanager</key>
+	<string>4</string>
+	<key>markerposition</key>
+	<string>{512, 384}</string>
+	<key>mimi</key>
+	<dict>
+		<key>z</key>
+		<string>2</string>
+		<key>movingparticle</key>
+		<dict>
+			<key>file</key>
+			<string>particle_bubble.plist</string>
+			<key>duration</key>
+			<string>-1</string>
+			<key>behaviour</key>
+			<string>source_follow</string>
+		</dict>
+		<key>falldistance</key>
+		<string>145</string>
+		<key>falldistancetol</key>
+		<string>0.1</string>
+		<key>ignoreonfall</key>
+		<true/>
+		<key>backgroundimage</key>
+		<string>clean_floor_floor_clean.png</string>
+		<key>foregroundimage</key>
+		<string>clean_floor_floor_dirt.png</string>
+		<key>papersheet</key>
+		<dict>
+			<key>maskmode</key>
+			<true/>
+			<key>backgroundcolor</key>
+			<string>{0,0,0,0}</string>
+			<key>brush</key>
+			<dict>
+				<key>randomizerotation</key>
+				<true/>
+				<key>repetitioninterval</key>
+				<string>10</string>
+				<key>size</key>
+				<string>1</string>
+				<key>startimages</key>
+				<string>clean_floor_mask_point.png</string>
+				<key>endimages</key>
+				<string>clean_floor_mask_point.png</string>
+				<key>pointimages</key>
+				<string>clean_floor_mask_point.png</string>
+				<key>images</key>
+				<string>clean_floor_mask_line.png</string>
+			</dict>
+		</dict>
+	</dict>
+	<key>Sponge</key>
+	<dict>
+		<key>role</key>
+		<string>sponge</string>
+		<key>anchor</key>
+		<string>{0.5, 0.5}</string>
+		<key>image</key>
+		<string>clean_floor_cleaner.png</string>
+		<key>z</key>
+		<string>5</string>
+	</dict>
+	<key>objectspeed</key>
+	<string>1000</string>
+	<key>threshold</key>
+	<string>0.2</string>
+	<key>object - 1</key>
+	<dict>
+		<key>role</key>
+		<string>object</string>
+		<key>anchor</key>
+		<string>{0.5, 0.5}</string>
+		<key>image</key>
+		<string>clean_floor_object_shoe.png</string>
+		<key>z</key>
+		<string>3</string>
+		<key>scale</key>
+		<string>0.5</string>
+	</dict>
+	<key>object - 2</key>
+	<dict>
+		<key>role</key>
+		<string>object</string>
+		<key>anchor</key>
+		<string>{0.5, 0.5}</string>
+		<key>image</key>
+		<string>clean_floor_object_shoe.png</string>
+		<key>z</key>
+		<string>3</string>
+		<key>scale</key>
+		<string>0.5</string>
+	</dict>
+	<key>object - 3</key>
+	<dict>
+		<key>role</key>
+		<string>object</string>
+		<key>anchor</key>
+		<string>{0.5, 0.5}</string>
+		<key>image</key>
+		<string>clean_floor_object_paper.png</string>
+		<key>z</key>
+		<string>3</string>
+		<key>scale</key>
+		<string>0.8</string>
+	</dict>
+	<key>object - 4</key>
+	<dict>
+		<key>role</key>
+		<string>object</string>
+		<key>anchor</key>
+		<string>{0.5, 0.5}</string>
+		<key>image</key>
+		<string>clean_floor_object_paper.png</string>
+		<key>z</key>
+		<string>3</string>
+		<key>scale</key>
+		<string>0.8</string>
+	</dict>
+	<key>object - 5</key>
+	<dict>
+		<key>role</key>
+		<string>object</string>
+		<key>anchor</key>
+		<string>{0.5, 0.5}</string>
+		<key>image</key>
+		<string>clean_floor_object_paper.png</string>
+		<key>z</key>
+		<string>3</string>
+		<key>scale</key>
+		<string>0.8</string>
+	</dict>
+	<key>object - 6</key>
+	<dict>
+		<key>role</key>
+		<string>object</string>
+		<key>anchor</key>
+		<string>{0.5, 0.5}</string>
+		<key>image</key>
+		<string>clean_floor_object_paper.png</string>
+		<key>z</key>
+		<string>3</string>
+		<key>scale</key>
+		<string>0.8</string>
+	</dict>
+	<key>object - 7</key>
+	<dict>
+		<key>role</key>
+		<string>object</string>
+		<key>anchor</key>
+		<string>{0.5, 0.5}</string>
+		<key>image</key>
+		<string>clean_floor_object_paper.png</string>
+		<key>z</key>
+		<string>3</string>
+		<key>scale</key>
+		<string>0.8</string>
+	</dict>
+	<key>object - 8</key>
+	<dict>
+		<key>role</key>
+		<string>object</string>
+		<key>anchor</key>
+		<string>{0.5, 0.5}</string>
+		<key>image</key>
+		<string>clean_floor_object_paper.png</string>
+		<key>z</key>
+		<string>3</string>
+		<key>scale</key>
+		<string>0.8</string>
+	</dict>
+	<key>object - 9</key>
+	<dict>
+		<key>role</key>
+		<string>object</string>
+		<key>anchor</key>
+		<string>{0.5, 0.5}</string>
+		<key>image</key>
+		<string>clean_floor_object_paper.png</string>
+		<key>z</key>
+		<string>3</string>
+		<key>scale</key>
+		<string>0.8</string>
+	</dict>
+	<key>object - 10</key>
+	<dict>
+		<key>role</key>
+		<string>object</string>
+		<key>anchor</key>
+		<string>{0.5, 0.5}</string>
+		<key>image</key>
+		<string>clean_floor_object_paper.png</string>
+		<key>z</key>
+		<string>3</string>
+		<key>scale</key>
+		<string>0.8</string>
+	</dict>
+	<key>countdown</key>
+	<dict>
+		<key>position_value</key>
+		<string>{240,12}</string>
+		<key>anchor_value</key>
+		<string>{0.5,0.5}</string>
+		<key>z_value</key>
+		<string>100</string>
+		<key>image_name</key>
+		<string>Barra_Energia-1.png</string>
+	</dict>
+	<key>matchtime</key>
+	<string>20</string>
+</dict>
+</plist>

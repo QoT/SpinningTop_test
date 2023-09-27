@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "06F17682-1E97-4585-BD5A-F2D78D27687E"
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "6FB5F71B-89A4-4881-95CE-685E421F7C13"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Classes/Cocos2d AddOn/ParticleSystem/ANCParticleSystemManager.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "178"
+            endingLineNumber = "178"
+            landmarkName = "-removeChild:cleanup:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "9EA06BD8-C075-4CA6-816E-7D9F39960F44"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Classes/GameCenter/GameCenterManager.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "111"
+            endingLineNumber = "111"
+            landmarkName = "-shouldAutorotateToInterfaceOrientation:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "0C4C8A2A-FB04-4AE7-8EF8-30A251865287"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Classes/Menu/MainMenu.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "155"
+            endingLineNumber = "155"
+            landmarkName = "-updateOrientationWithOrientation:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "2C8478A8-A67E-4F32-B786-2055ED7ADD27"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Other Sources/SpinningTopAppDelegate.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "94"
+            endingLineNumber = "94"
+            landmarkName = "-applicationDidFinishLaunching:"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "2C8478A8-A67E-4F32-B786-2055ED7ADD27 - f58a7fd4f55b414c"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[SpinningTopAppDelegate applicationDidFinishLaunching:]"
+                  moduleName = "SpinningTopDev"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Volumes/Development/Projects.2023/Mimiland%20App/progetto%20Xcode/SpinningTop_orig/Other%20Sources/SpinningTopAppDelegate.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "94"
+                  endingLineNumber = "94"
+                  offsetFromSymbolStart = "384">
+               </Location>
+               <Location
+                  uuid = "2C8478A8-A67E-4F32-B786-2055ED7ADD27 - f58a7fd4f55b410e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[SpinningTopAppDelegate applicationDidFinishLaunching:]"
+                  moduleName = "SpinningTopDev"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Volumes/Development/Projects.2023/Mimiland%20App/progetto%20Xcode/SpinningTop_orig/Other%20Sources/SpinningTopAppDelegate.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "96"
+                  endingLineNumber = "96"
+                  offsetFromSymbolStart = "384">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "630889B8-32C6-4ACC-875F-878DD845F083"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Other Sources/SpinningTopAppDelegate.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "96"
+            endingLineNumber = "96"
+            landmarkName = "-applicationDidFinishLaunching:"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "630889B8-32C6-4ACC-875F-878DD845F083 - f58a7fd4f55b41ab"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[SpinningTopAppDelegate applicationDidFinishLaunching:]"
+                  moduleName = "SpinningTopDev"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Volumes/Development/Projects.2023/Mimiland%20App/progetto%20Xcode/SpinningTop_orig/Other%20Sources/SpinningTopAppDelegate.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "99"
+                  endingLineNumber = "99"
+                  offsetFromSymbolStart = "400">
+               </Location>
+               <Location
+                  uuid = "630889B8-32C6-4ACC-875F-878DD845F083 - f58a7fd4f55b410e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[SpinningTopAppDelegate applicationDidFinishLaunching:]"
+                  moduleName = "SpinningTopDev"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Volumes/Development/Projects.2023/Mimiland%20App/progetto%20Xcode/SpinningTop_orig/Other%20Sources/SpinningTopAppDelegate.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "96"
+                  endingLineNumber = "96"
+                  offsetFromSymbolStart = "384">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "1375D0D0-6FCB-4B07-8ABE-06F09B009C7A"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Other Sources/RootViewController.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "49"
+            endingLineNumber = "49"
+            landmarkName = "-supportedInterfaceOrientations"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "1253F6A6-A9CC-47E7-B4B5-F589A02FE610"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Other Sources/RootViewController.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "76"
+            endingLineNumber = "76"
+            landmarkName = "-shouldAutorotateToInterfaceOrientation:"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "1253F6A6-A9CC-47E7-B4B5-F589A02FE610 - 1957f7956de729fc"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[RootViewController shouldAutorotateToInterfaceOrientation:]"
+                  moduleName = "SpinningTopDev"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Volumes/Development/Projects.2023/Mimiland%20App/progetto%20Xcode/SpinningTop_orig/Other%20Sources/RootViewController.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "102"
+                  endingLineNumber = "102"
+                  offsetFromSymbolStart = "24">
+               </Location>
+               <Location
+                  uuid = "1253F6A6-A9CC-47E7-B4B5-F589A02FE610 - 1957f7956de72c0a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[RootViewController shouldAutorotateToInterfaceOrientation:]"
+                  moduleName = "SpinningTopDev"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Volumes/Development/Projects.2023/Mimiland%20App/progetto%20Xcode/SpinningTop_orig/Other%20Sources/RootViewController.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "84"
+                  endingLineNumber = "84"
+                  offsetFromSymbolStart = "24">
+               </Location>
+               <Location
+                  uuid = "1253F6A6-A9CC-47E7-B4B5-F589A02FE610 - 1957f7956de72d02"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[RootViewController shouldAutorotateToInterfaceOrientation:]"
+                  moduleName = "SpinningTopDev"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Volumes/Development/Projects.2023/Mimiland%20App/progetto%20Xcode/SpinningTop_orig/Other%20Sources/RootViewController.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "76"
+                  endingLineNumber = "76"
+                  offsetFromSymbolStart = "16">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "0F084902-C499-445C-B799-0A41FC9BE5C2"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Other Sources/RootViewController.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "84"
+            endingLineNumber = "84"
+            landmarkName = "-shouldAutorotateToInterfaceOrientation:"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "0F084902-C499-445C-B799-0A41FC9BE5C2 - 1957f7956de729fc"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[RootViewController shouldAutorotateToInterfaceOrientation:]"
+                  moduleName = "SpinningTopDev"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Volumes/Development/Projects.2023/Mimiland%20App/progetto%20Xcode/SpinningTop_orig/Other%20Sources/RootViewController.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "102"
+                  endingLineNumber = "102"
+                  offsetFromSymbolStart = "24">
+               </Location>
+               <Location
+                  uuid = "0F084902-C499-445C-B799-0A41FC9BE5C2 - 1957f7956de72c0a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[RootViewController shouldAutorotateToInterfaceOrientation:]"
+                  moduleName = "SpinningTopDev"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Volumes/Development/Projects.2023/Mimiland%20App/progetto%20Xcode/SpinningTop_orig/Other%20Sources/RootViewController.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "84"
+                  endingLineNumber = "84"
+                  offsetFromSymbolStart = "24">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "92CB7F81-977D-4A94-B9EC-68DA9E1DF3B3"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Other Sources/RootViewController.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "102"
+            endingLineNumber = "102"
+            landmarkName = "-shouldAutorotateToInterfaceOrientation:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "68C3CDD7-5C4D-4637-8404-2C25D0D62174"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Other Sources/RootViewController.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "111"
+            endingLineNumber = "111"
+            landmarkName = "-shouldAutorotateToInterfaceOrientation:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F1C6DC94-8697-4083-8356-40218F1EE14F"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Other Sources/RootViewController.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "126"
+            endingLineNumber = "126"
+            landmarkName = "-willRotateToInterfaceOrientation:duration:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "585DBEA8-F9D7-402A-B176-D4B6EAD1A603"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Other Sources/RootViewController.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "152"
+            endingLineNumber = "152"
+            landmarkName = "-willRotateToInterfaceOrientation:duration:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>

@@ -1,0 +1,195 @@
+//
+//  ANCParticleSystem.m
+//  Farm Attack
+//
+//  Created by mad4chip on 24/05/12.
+//  Copyright 2012 __MyCompanyName__. All rights reserved.
+//
+
+#import "ANCParticleSystemManager.h"
+#import "ANCAnimationCache.h"
+#import "CocosAddOn.h"
+ANCParticleSystemManager	*sharedParticleSystemManager_;
+
+@implementation ANCParticleSystemManager
++(id)sharedParticleSystemManager
+{
+	NSAssert(sharedParticleSystemManager_, @"First create the manager and add it to the scene");
+	return sharedParticleSystemManager_;
+}
+
++(id)newParticleSystemManager
+{
+	NSAssert(sharedParticleSystemManager_ == nil, @"Only one manager allowed");
+	sharedParticleSystemManager_	= [[[self alloc] initParticleSystemManager] autorelease];
+	return	sharedParticleSystemManager_;
+}
+
+-(id)initParticleSystemManager
+{
+	if ((self = [super init]))
+	{
+		UnusedParticleSystems	= [[NSMutableDictionary dictionaryWithCapacity: 0] retain];
+		LoadedFiles				= [[NSMutableDictionary dictionaryWithCapacity: 0] retain];
+	}
+	return self;
+}
+
+-(NSDictionary*)preloadParticleSystemWithFile: (NSString*)FileName
+{
+	NSMutableDictionary	*Dictionary;
+	if ((Dictionary = [LoadedFiles objectForKey: FileName]))
+	{
+		[Dictionary retain];//qui l'analisi trova un leak ma è corretto
+		return Dictionary;
+	}
+
+	NSString	*path	= [CCFileUtils fullPathFromRelativePath: FileName];
+	Dictionary			= [NSDictionary dictionaryWithContentsOfFile: path];
+	NSAssert( Dictionary != nil, @"Particles: file not found");
+
+	[[ANCAnimationCache sharedAnimationCache] lockCache];//l'init del particle system non è thread safe
+	ANCParticleSystem	*New	= [ANCParticleSystem particleWithDictionary: Dictionary];
+	[[ANCAnimationCache sharedAnimationCache] unlockCache];
+
+	New.Name					= FileName;
+	New.position				= CGPointZero;
+	New.autoRemoveOnFinish		= true;
+	[New stopSystem];//unscheduleupdate
+	[self addChild: New];
+
+	if ([Dictionary objectForKey: @"textureImageData"])
+	{//plist contains texture data, strip it befor storing in dictionary
+		Dictionary	= [[Dictionary mutableCopy] autorelease];
+		[Dictionary removeObjectForKey: @"textureImageData"];
+	}
+	[LoadedFiles setObject: Dictionary forKey: FileName];
+	[Dictionary retain];//il retaincount è 1+ il numero di precaricamenti fatti
+
+	[self removeChild: New cleanup: true];
+//	NSAssert([UnusedParticleSystems objectForKey: FileName] == nil, @"Strange");
+//	[UnusedParticleSystems setObject: [NSMutableArray arrayWithObject: New] forKey: FileName];
+	return Dictionary;
+}
+
+-(void)unloadParticleSystemWithFile: (NSString*)FileName
+{
+	NSMutableDictionary	*Dictionary;
+	if ((Dictionary = [LoadedFiles objectForKey: FileName]))
+	{
+		[Dictionary release];//qui l'analisi trova un erraro decremento ma è corretto
+		int	RetainCount	= [Dictionary retainCount] - 1;
+
+		NSMutableArray	*Array		= [UnusedParticleSystems objectForKey: FileName];
+		while ([Array count] > RetainCount)
+		{
+			ANCParticleSystem	*child	= [Array lastObject];
+			[Array removeLastObject];
+			[super removeChild: child cleanup: true];//super non self
+		}
+
+		if (RetainCount == 0)
+		{//nessuno ha più bisogno di questo particleSystem
+			[UnusedParticleSystems removeObjectForKey: FileName];//dealloca tutti i particleSystem attualmente non usati
+			[LoadedFiles removeObjectForKey: FileName];
+		}
+	}
+}
+
+-(ANCParticleSystem*)newParticleSystemWithFile: (NSString*)FileName
+{
+	ANCParticleSystem	*New;
+	NSMutableArray		*FileArray	= [UnusedParticleSystems objectForKey: FileName];
+	
+	if ((FileArray) && ([FileArray count] > 0))
+	{
+		New	= [FileArray lastObject];
+		[FileArray removeLastObject];
+	}
+	else
+	{
+		NSDictionary	*Config	= [LoadedFiles objectForKey: FileName];
+		if (!Config)
+		{
+			[self preloadParticleSystemWithFile: FileName];
+			Config	= [LoadedFiles objectForKey: FileName];
+		}
+		New						= [ANCParticleSystem particleWithDictionary: Config];
+		New.Name				= FileName;
+		New.autoRemoveOnFinish	= true;
+		New.position			= CGPointZero;
+		[self addChild: New];
+	}
+
+	[New stopSystem];//unscheduleupdate
+	return New;//qui l'analisi trova un errore ma è corretto
+}
+
+-(void)removeUnusedParticleSystems
+{
+	for (NSString *FileName in LoadedFiles)
+	{
+		NSMutableDictionary		*Dictionary	= [LoadedFiles objectForKey: FileName];
+		if ([Dictionary retainCount] == 1)
+		{
+			[self unloadParticleSystemWithFile: FileName];
+			[UnusedParticleSystems removeObjectForKey: FileName];//dealloca tutti i particleSystem attualmente non usati
+			[LoadedFiles removeObjectForKey: FileName];
+		}
+		else while ([Dictionary retainCount] > 2)
+			[self unloadParticleSystemWithFile: FileName];
+	}	
+}
+
+-(void) stopAllParticleSystems
+{
+	[self stopAllActions];
+	ANCParticleSystem *child;
+	CCARRAY_FOREACH(children_, child)
+	{
+		child.attachToNode	= nil;
+		[child stopSystem];
+		[child unscheduleUpdate];
+//		child.running	= false;
+		child.visible	= false;
+	}
+}
+
+-(void)addChild: (CCNode*) child z:(NSInteger)z tag:(NSInteger) aTag
+{	
+	NSAssert([child isKindOfClass: [ANCParticleSystem class]], @"Only CCParticleSystem accepted as children");
+//	((ANCParticleSystem*)child).running	= true;
+	[super addChild: child z: z tag: aTag];
+}
+
+-(void)removeChild: (CCNode*)child cleanup:(BOOL)cleanup
+{
+	NSString		*File		= ((ANCParticleSystem*)child).Name;
+	NSAssert(File, @"Missing name for ANCParticleSystem");
+	NSMutableArray	*Array		= [UnusedParticleSystems objectForKey: File];
+	if (!Array)
+	{
+		Array	= [NSMutableArray arrayWithCapacity: 1];
+		[UnusedParticleSystems setObject: Array forKey: File];
+	}
+	[Array addObject: child];
+	((ANCParticleSystem*)child).attachToNode	= nil;
+	[(ANCParticleSystem*)child stopSystem];
+	[self stopAllActionsByTag: (NSInteger)child];
+	[child unscheduleUpdate];
+//	((ANCParticleSystem*)child).running	= false;
+	if (sharedParticleSystemManager_ == nil)//non rimuove il figlio per evitare che venga deallocato, se sharedParticleSystemManager_ == nil il gestore si stà deallocando e vengono rimossi i figli
+            [super removeChild: child cleanup: cleanup];//rimuove il figlio e ferma gli scheduler
+	else	child.visible	= false;
+}
+
+-(void)dealloc
+{
+	sharedParticleSystemManager_	= nil;//segnalo che il manager si stà deallocando
+	[UnusedParticleSystems	release];
+	[LoadedFiles release];
+	[super dealloc];
+}
+
+@end
+

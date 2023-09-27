@@ -1,0 +1,539 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>atlas</key>
+	<array/>
+	<key>buttonclick</key>
+	<string>CLIC MENU.caf</string>
+	<key>fontname</key>
+	<string>Market Felt</string>
+	<key>fontsize</key>
+	<integer>30</integer>
+	<key>z</key>
+	<string>100</string>
+	<key>winlayer</key>
+	<dict>
+		<key>layercolor</key>
+		<string>{0,0,0,50}</string>
+		<key>visible</key>
+		<false/>
+		<key>role</key>
+		<string>win layer</string>
+		<key>fontname</key>
+		<string>Market Felt</string>
+		<key>fontcolor</key>
+		<string>{128,128,0}</string>
+		<key>background </key>
+		<dict>
+			<key>image</key>
+			<string>popup_win.png</string>
+			<key>z</key>
+			<string>6</string>
+			<key>position</key>
+			<string>{512,384}</string>
+			<key>anchor</key>
+			<string>{0.5,0.5}</string>
+		</dict>
+		<key>z</key>
+		<string>1</string>
+		<key>buttonclick</key>
+		<string>CLIC MENU.caf</string>
+		<key>menu</key>
+		<dict>
+			<key>anchor</key>
+			<string>{0.5, 0.5}</string>
+			<key>image</key>
+			<string>button_menu.png</string>
+			<key>scaleonselect</key>
+			<string>{0.8, 0.8}</string>
+			<key>rotation</key>
+			<string>0</string>
+			<key>position</key>
+			<string>{600, 322}</string>
+			<key>scene</key>
+			<string>0</string>
+			<key>z</key>
+			<string>7</string>
+		</dict>
+		<key>next</key>
+		<dict>
+			<key>anchor</key>
+			<string>{0.5, 0.5}</string>
+			<key>image</key>
+			<string>button_next.png</string>
+			<key>rotation</key>
+			<string>0</string>
+			<key>position</key>
+			<string>{802, 322}</string>
+			<key>scaleonselect</key>
+			<string>{0.8, 0.8}</string>
+			<key>scene</key>
+			<string>-15</string>
+			<key>tintonselect</key>
+			<string>{200, 200, 200}</string>
+			<key>z</key>
+			<string>7</string>
+		</dict>
+		<key>retry</key>
+		<dict>
+			<key>anchor</key>
+			<string>{0.5, 0.5}</string>
+			<key>image</key>
+			<string>button_retry.png</string>
+			<key>rotation</key>
+			<string>0</string>
+			<key>position</key>
+			<string>{700, 322}</string>
+			<key>scaleonselect</key>
+			<string>{0.8, 0.8}</string>
+			<key>scene</key>
+			<string>-16</string>
+			<key>tintonselect</key>
+			<string>{200, 200, 200}</string>
+			<key>z</key>
+			<string>7</string>
+		</dict>
+		<key>star_off</key>
+		<dict>
+			<key>anchor</key>
+			<string>{0.5, 0.5}</string>
+			<key>image</key>
+			<string>star_off.png</string>
+			<key>rotation</key>
+			<string>0</string>
+			<key>position</key>
+			<string>{716, 584}</string>
+			<key>z</key>
+			<string>7</string>
+		</dict>
+		<key>star_off - 2</key>
+		<dict>
+			<key>anchor</key>
+			<string>{0.5, 0.5}</string>
+			<key>image</key>
+			<string>star_off.png</string>
+			<key>rotation</key>
+			<string>0</string>
+			<key>position</key>
+			<string>{649, 584}</string>
+			<key>z</key>
+			<string>7</string>
+		</dict>
+		<key>star_off - 3</key>
+		<dict>
+			<key>anchor</key>
+			<string>{0.5, 0.5}</string>
+			<key>image</key>
+			<string>star_off.png</string>
+			<key>rotation</key>
+			<string>0</string>
+			<key>position</key>
+			<string>{584, 584}</string>
+			<key>z</key>
+			<string>7</string>
+		</dict>
+		<key>star_on</key>
+		<dict>
+			<key>anchor</key>
+			<string>{0.5, 0.5}</string>
+			<key>role</key>
+			<string>star 1</string>
+			<key>visible</key>
+			<false/>
+			<key>image</key>
+			<string>star_full.png</string>
+			<key>rotation</key>
+			<string>0</string>
+			<key>position</key>
+			<string>{584, 584}</string>
+			<key>z</key>
+			<string>8</string>
+		</dict>
+		<key>star_on2</key>
+		<dict>
+			<key>anchor</key>
+			<string>{0.5, 0.5}</string>
+			<key>role</key>
+			<string>star 2</string>
+			<key>visible</key>
+			<false/>
+			<key>image</key>
+			<string>star_full.png</string>
+			<key>rotation</key>
+			<string>0</string>
+			<key>position</key>
+			<string>{649, 584}</string>
+			<key>z</key>
+			<string>10</string>
+		</dict>
+		<key>star_on3</key>
+		<dict>
+			<key>anchor</key>
+			<string>{0.5, 0.5}</string>
+			<key>role</key>
+			<string>star 3</string>
+			<key>visible</key>
+			<false/>
+			<key>image</key>
+			<string>star_full.png</string>
+			<key>rotation</key>
+			<string>0</string>
+			<key>position</key>
+			<string>{584, 584}</string>
+			<key>z</key>
+			<string>10</string>
+		</dict>
+		<key>excellent</key>
+		<dict>
+			<key>position</key>
+			<string>{280,558}</string>
+			<key>anchor</key>
+			<string>{0, 0}</string>
+			<key>fontname</key>
+			<string>Starguide.fnt</string>
+			<key>fontsize</key>
+			<string>36</string>
+			<key>fontcolor</key>
+			<string>{255,255,255}</string>
+			<key>text</key>
+			<string>EXCELLENT!</string>
+			<key>text-it</key>
+			<string>ECCELLENTE!</string>
+			<key>z</key>
+			<string>7</string>
+		</dict>
+		<key>level_bonus</key>
+		<dict>
+			<key>position</key>
+			<string>{280,496}</string>
+			<key>anchor</key>
+			<string>{0, 0}</string>
+			<key>fontname</key>
+			<string>Starguide.fnt</string>
+			<key>fontsize</key>
+			<string>36</string>
+			<key>fontcolor</key>
+			<string>{255,255,255}</string>
+			<key>text</key>
+			<string>LEVEL:</string>
+			<key>text-it</key>
+			<string>livello:</string>
+			<key>z</key>
+			<string>7</string>
+		</dict>
+		<key>level_result</key>
+		<dict>
+			<key>role</key>
+			<string>level </string>
+			<key>anchor</key>
+			<string>{0, 0}</string>
+			<key>fontname</key>
+			<string>Starguide.fnt</string>
+			<key>fontsize</key>
+			<string>36</string>
+			<key>fontcolor</key>
+			<string>{255,255,255}</string>
+			<key>text</key>
+			<string>0</string>
+			<key>position</key>
+			<string>{408,496}</string>
+			<key>z</key>
+			<string>8</string>
+		</dict>
+		<key>star_bonus</key>
+		<dict>
+			<key>position</key>
+			<string>{280,445}</string>
+			<key>anchor</key>
+			<string>{0, 0}</string>
+			<key>fontname</key>
+			<string>Starguide.fnt</string>
+			<key>fontsize</key>
+			<string>36</string>
+			<key>fontcolor</key>
+			<string>{255,255,255}</string>
+			<key>text</key>
+			<string>STAR BONUS:</string>
+			<key>text-it</key>
+			<string>bonus stelle:</string>
+			<key>z</key>
+			<string>7</string>
+		</dict>
+		<key>star_result</key>
+		<dict>
+			<key>role</key>
+			<string>star bonus</string>
+			<key>anchor</key>
+			<string>{0, 0}</string>
+			<key>fontname</key>
+			<string>Starguide.fnt</string>
+			<key>fontsize</key>
+			<string>36</string>
+			<key>fontcolor</key>
+			<string>{255,255,255}</string>
+			<key>text</key>
+			<string>0</string>
+			<key>position</key>
+			<string>{512,445}</string>
+			<key>z</key>
+			<string>8</string>
+		</dict>
+		<key>time_bonus</key>
+		<dict>
+			<key>position</key>
+			<string>{280,394}</string>
+			<key>anchor</key>
+			<string>{0, 0}</string>
+			<key>fontname</key>
+			<string>Starguide.fnt</string>
+			<key>fontsize</key>
+			<string>36</string>
+			<key>fontcolor</key>
+			<string>{255,255,255}</string>
+			<key>text</key>
+			<string>TIME BONUS:</string>
+			<key>text-it</key>
+			<string>tempo bonus:</string>
+			<key>z</key>
+			<string>7</string>
+		</dict>
+		<key>time_result</key>
+		<dict>
+			<key>role</key>
+			<string>time bonus</string>
+			<key>anchor</key>
+			<string>{0, 0}</string>
+			<key>fontname</key>
+			<string>Starguide.fnt</string>
+			<key>fontsize</key>
+			<string>36</string>
+			<key>fontcolor</key>
+			<string>{255,255,255}</string>
+			<key>text</key>
+			<string>0</string>
+			<key>position</key>
+			<string>{512,394}</string>
+			<key>z</key>
+			<string>8</string>
+		</dict>
+		<key>total</key>
+		<dict>
+			<key>position</key>
+			<string>{280,316}</string>
+			<key>anchor</key>
+			<string>{0, 0}</string>
+			<key>fontname</key>
+			<string>Starguide.fnt</string>
+			<key>fontsize</key>
+			<string>36</string>
+			<key>fontcolor</key>
+			<string>{255,255,255}</string>
+			<key>text</key>
+			<string>TOTAL:</string>
+			<key>text-it</key>
+			<string>TOTALE:</string>
+			<key>z</key>
+			<string>6</string>
+		</dict>
+		<key>total_result</key>
+		<dict>
+			<key>role</key>
+			<string>total bonus</string>
+			<key>anchor</key>
+			<string>{0, 0}</string>
+			<key>fontname</key>
+			<string>Starguide.fnt</string>
+			<key>fontsize</key>
+			<string>36</string>
+			<key>fontcolor</key>
+			<string>{255,255,255}</string>
+			<key>text</key>
+			<string>0</string>
+			<key>position</key>
+			<string>{420,316}</string>
+			<key>z</key>
+			<string>8</string>
+		</dict>
+	</dict>
+	<key>retrylayer</key>
+	<dict>
+		<key>layercolor</key>
+		<string>{0,0,0,50}</string>
+		<key>visible</key>
+		<false/>
+		<key>role</key>
+		<string>retry layer</string>
+		<key>fontname</key>
+		<string>Market Felt</string>
+		<key>fontcolor</key>
+		<string>{128,128,0}</string>
+		<key>background </key>
+		<dict>
+			<key>image</key>
+			<string>popup_retry.png</string>
+			<key>z</key>
+			<string>6</string>
+			<key>position</key>
+			<string>{512,384}</string>
+			<key>anchor</key>
+			<string>{0.5,0.5}</string>
+		</dict>
+		<key>z</key>
+		<string>1</string>
+		<key>buttonclick</key>
+		<string>CLIC MENU.caf</string>
+		<key>menu</key>
+		<dict>
+			<key>anchor</key>
+			<string>{0.5, 0.5}</string>
+			<key>image</key>
+			<string>button_menu.png</string>
+			<key>scaleonselect</key>
+			<string>{0.8, 0.8}</string>
+			<key>rotation</key>
+			<string>0</string>
+			<key>position</key>
+			<string>{600, 322}</string>
+			<key>scene</key>
+			<string>0</string>
+			<key>z</key>
+			<string>7</string>
+		</dict>
+		<key>next</key>
+		<dict>
+			<key>anchor</key>
+			<string>{0.5, 0.5}</string>
+			<key>image</key>
+			<string>button_next.png</string>
+			<key>rotation</key>
+			<string>0</string>
+			<key>position</key>
+			<string>{802, 322}</string>
+			<key>scaleonselect</key>
+			<string>{0.8, 0.8}</string>
+			<key>scene</key>
+			<string>-15</string>
+			<key>tintonselect</key>
+			<string>{200, 200, 200}</string>
+			<key>z</key>
+			<string>7</string>
+		</dict>
+		<key>retry</key>
+		<dict>
+			<key>anchor</key>
+			<string>{0.5, 0.5}</string>
+			<key>image</key>
+			<string>button_retry.png</string>
+			<key>rotation</key>
+			<string>0</string>
+			<key>position</key>
+			<string>{700, 322}</string>
+			<key>scaleonselect</key>
+			<string>{0.8, 0.8}</string>
+			<key>scene</key>
+			<string>-16</string>
+			<key>tintonselect</key>
+			<string>{200, 200, 200}</string>
+			<key>z</key>
+			<string>7</string>
+		</dict>
+		<key>try_again</key>
+		<dict>
+			<key>position</key>
+			<string>{280,558}</string>
+			<key>anchor</key>
+			<string>{0, 0}</string>
+			<key>fontname</key>
+			<string>Starguide.fnt</string>
+			<key>fontsize</key>
+			<string>36</string>
+			<key>fontcolor</key>
+			<string>{255,255,255}</string>
+			<key>text</key>
+			<string>TRY AGAIN!</string>
+			<key>text-it</key>
+			<string>RIPROVA!</string>
+			<key>z</key>
+			<string>7</string>
+		</dict>
+		<key>do_better</key>
+		<dict>
+			<key>position</key>
+			<string>{280,496}</string>
+			<key>anchor</key>
+			<string>{0, 0}</string>
+			<key>fontname</key>
+			<string>Starguide.fnt</string>
+			<key>fontsize</key>
+			<string>36</string>
+			<key>fontcolor</key>
+			<string>{255,255,255}</string>
+			<key>text</key>
+			<string>YOU CAN DO IT BETTER!</string>
+			<key>text-it</key>
+			<string>PUOI FARE DI MEGLIO!</string>
+			<key>z</key>
+			<string>7</string>
+		</dict>
+	</dict>
+	<key>exit_time</key>
+	<string>2</string>
+	<key>Marker Layer</key>
+	<dict>
+		<key>layercolor</key>
+		<string>{0,0,0,0}</string>
+		<key>z</key>
+		<string>2</string>
+		<key>role</key>
+		<string>marker_layer</string>
+		<key>visible</key>
+		<false/>
+		<key>Marker</key>
+		<dict>
+			<key>_role</key>
+			<string>marker</string>
+			<key>_image</key>
+			<string>marker_mimì_on.png</string>
+			<key>position</key>
+			<string>{0, 0}</string>
+			<key>anchor</key>
+			<string>{0.5, 0.5}</string>
+			<key>z</key>
+			<string>2</string>
+		</dict>
+		<key>Marker on</key>
+		<dict>
+			<key>role</key>
+			<string>markeron</string>
+			<key>image</key>
+			<string>marker_mimì_on.png</string>
+			<key>position</key>
+			<string>{0, 0}</string>
+			<key>anchor</key>
+			<string>{0.5, 0.5}</string>
+			<key>z</key>
+			<string>2</string>
+		</dict>
+		<key>Put here</key>
+		<dict>
+			<key>position</key>
+			<string>{0,-170}</string>
+			<key>anchor</key>
+			<string>{0.5, 0.5}</string>
+			<key>fontname</key>
+			<string>Starguide.fnt</string>
+			<key>fontsize</key>
+			<string>36</string>
+			<key>fontcolor</key>
+			<string>{255,255,255}</string>
+			<key>text</key>
+			<string>PUT MIMI&apos; HERE</string>
+			<key>text-it</key>
+			<string>POGGIA MIMI&apos; QUI</string>
+			<key>z</key>
+			<string>2</string>
+		</dict>
+	</dict>
+</dict>
+</plist>

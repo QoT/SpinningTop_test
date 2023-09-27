@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>atlas</key>
+	<array/>
+	<key>layercolor</key>
+	<string>{128,128,128,255}</string>
+	<key>include</key>
+	<string>MimiLandManager.plist</string>
+	<key>particlesystemmanager</key>
+	<string>4</string>
+	<key>matchTime</key>
+	<string>20</string>
+	<key>_backgroundmusic</key>
+	<string>MENU .caf</string>
+	<key>buttonclick</key>
+	<string>CLIC MENU.caf</string>
+	<key>fontname</key>
+	<string>Market Felt</string>
+	<key>fontsize</key>
+	<integer>30</integer>
+	<key>role</key>
+	<string>mainlayer</string>
+	<key>mimi</key>
+	<dict>
+		<key>z</key>
+		<string>2</string>
+		<key>movingparticle</key>
+		<dict>
+			<key>file</key>
+			<string>fumo.plist</string>
+			<key>duration</key>
+			<string>-1</string>
+			<key>behaviour</key>
+			<string>source_follow</string>
+		</dict>
+		<key>falldistance</key>
+		<string>145</string>
+		<key>falldistancetol</key>
+		<string>0.1</string>
+		<key>ignoreonfall</key>
+		<true/>
+		<key>movepath</key>
+		<string>crossing_road_background.png</string>
+		<key>negatepath</key>
+		<true/>
+		<key>_papersheet</key>
+		<dict>
+			<key>maskmode</key>
+			<false/>
+			<key>backgroundcolor</key>
+			<string>{0,0,0,0}</string>
+			<key>brush</key>
+			<dict>
+				<key>randomizerotation</key>
+				<true/>
+				<key>repetitioninterval</key>
+				<string>200</string>
+				<key>size</key>
+				<string>1</string>
+				<key>startimages</key>
+				<string>drive_the_screw_screw_hole.png</string>
+				<key>endimages</key>
+				<string>drive_the_screw_screw_hole.png</string>
+				<key>pointimages</key>
+				<string>drive_the_screw_screw_hole.png</string>
+				<key>images</key>
+				<string>drive_the_screw_screw_hole.png</string>
+			</dict>
+		</dict>
+	</dict>
+	<key>Start</key>
+	<dict>
+		<key>role</key>
+		<string>start</string>
+		<key>image</key>
+		<string>crossing_road_start.png</string>
+		<key>position</key>
+		<string>{120, 120}</string>
+		<key>anchor</key>
+		<string>{0.5, 0.5}</string>
+		<key>rotation</key>
+		<string>45</string>
+		<key>z</key>
+		<string>3</string>
+	</dict>
+	<key>Finish</key>
+	<dict>
+		<key>role</key>
+		<string>finish</string>
+		<key>image</key>
+		<string>crossing_road_finish.png</string>
+		<key>position</key>
+		<string>{735, 678}</string>
+		<key>anchor</key>
+		<string>{0.5, 0.5}</string>
+		<key>rotation</key>
+		<string>45</string>
+		<key>scale</key>
+		<string>0.8</string>
+		<key>z</key>
+		<string>3</string>
+	</dict>
+	<key>countdown</key>
+	<dict>
+		<key>position_value</key>
+		<string>{240,12}</string>
+		<key>anchor_value</key>
+		<string>{0.5,0.5}</string>
+		<key>z_value</key>
+		<string>100</string>
+		<key>image_name</key>
+		<string>Barra_Energia-1.png</string>
+	</dict>
+</dict>
+</plist>

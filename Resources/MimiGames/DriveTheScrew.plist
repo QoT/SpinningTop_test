@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>atlas</key>
+	<array/>
+	<key>include</key>
+	<string>MimiLandManager.plist</string>
+	<key>particlesystemmanager</key>
+	<string>4</string>
+	<key>matchTime</key>
+	<string>20</string>
+	<key>_backgroundmusic</key>
+	<string>MENU .caf</string>
+	<key>buttonclick</key>
+	<string>CLIC MENU.caf</string>
+	<key>fontname</key>
+	<string>Market Felt</string>
+	<key>fontsize</key>
+	<integer>30</integer>
+	<key>role</key>
+	<string>mainlayer</string>
+	<key>markerposition</key>
+	<string>{512, 384}</string>
+	<key>background</key>
+	<dict>
+		<key>image</key>
+		<string>drive_the_screw_background.png</string>
+		<key>z</key>
+		<string>-1</string>
+		<key>visible</key>
+		<true/>
+	</dict>
+	<key>Horse</key>
+	<dict>
+		<key>image</key>
+		<string>drive_the_screw_toys_01.png</string>
+		<key>z</key>
+		<string>1</string>
+	</dict>
+	<key>Action up</key>
+	<dict>
+		<key>role</key>
+		<string>action_up</string>
+		<key>image</key>
+		<string>button_action_up.png</string>
+		<key>position</key>
+		<string>{920, 64}</string>
+		<key>anchor</key>
+		<string>{0.5, 0.5}</string>
+		<key>z</key>
+		<string>2</string>
+	</dict>
+	<key>Action down</key>
+	<dict>
+		<key>role</key>
+		<string>action_down</string>
+		<key>image</key>
+		<string>button_action_down.png</string>
+		<key>position</key>
+		<string>{920, 64}</string>
+		<key>anchor</key>
+		<string>{0.5, 0.5}</string>
+		<key>z</key>
+		<string>2</string>
+	</dict>
+	<key>mimi</key>
+	<dict>
+		<key>z</key>
+		<string>2</string>
+		<key>movingparticle</key>
+		<dict>
+			<key>file</key>
+			<string>wood_particle.plist</string>
+			<key>duration</key>
+			<string>-1</string>
+			<key>behaviour</key>
+			<string>source_follow</string>
+		</dict>
+		<key>falldistance</key>
+		<string>145</string>
+		<key>falldistancetol</key>
+		<string>0.1</string>
+		<key>ignoreonfall</key>
+		<true/>
+		<key>startrect</key>
+		<string>{{412, 284}, {200, 200}}</string>
+		<key>papersheet</key>
+		<dict>
+			<key>maskmode</key>
+			<false/>
+			<key>backgroundcolor</key>
+			<string>{0,0,0,0}</string>
+			<key>brush</key>
+			<dict>
+				<key>randomizerotation</key>
+				<true/>
+				<key>repetitioninterval</key>
+				<string>200</string>
+				<key>size</key>
+				<string>1</string>
+				<key>startimages</key>
+				<string>drive_the_screw_screw_hole.png</string>
+				<key>endimages</key>
+				<string>drive_the_screw_screw_hole.png</string>
+				<key>pointimages</key>
+				<string>drive_the_screw_screw_hole.png</string>
+				<key>images</key>
+				<string>drive_the_screw_screw_hole.png</string>
+			</dict>
+		</dict>
+	</dict>
+	<key>screwonimage</key>
+	<string>drive_the_screw_screw_on.png</string>
+	<key>screwoffimage</key>
+	<string>drive_the_screw_screw_off.png</string>
+	<key>screwshadow</key>
+	<string>drive_the_screw_screw_shadow.png</string>
+	<key>markerimage</key>
+	<string>range_marker.png</string>
+	<key>markersize</key>
+	<string>0.7</string>
+	<key>screwshadowanchor</key>
+	<string>{0.2, 0.5}</string>
+	<key>screwturns</key>
+	<string>1</string>
+	<key>drivetime</key>
+	<string>2</string>
+	<key>screwscalefactor</key>
+	<string>0.5</string>
+	<key>screws</key>
+	<array>
+		<string>{335, 495}</string>
+		<string>{736, 282}</string>
+		<string>{774, 454}</string>
+		<string>{358, 282}</string>
+	</array>
+	<key>screw_layer</key>
+	<dict>
+		<key>layercolor</key>
+		<string>{0,0,0,0}</string>
+		<key>role</key>
+		<string>screw layer</string>
+		<key>z</key>
+		<string>5</string>
+	</dict>
+	<key>countdown</key>
+	<dict>
+		<key>position_value</key>
+		<string>{240,12}</string>
+		<key>anchor_value</key>
+		<string>{0.5,0.5}</string>
+		<key>z_value</key>
+		<string>100</string>
+		<key>image_name</key>
+		<string>Barra_Energia-1.png</string>
+	</dict>
+</dict>
+</plist>

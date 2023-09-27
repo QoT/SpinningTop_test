@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>atlas</key>
+	<string>loading_parts-hd.plist</string>
+	<key>states</key>
+	<dict>
+		<key>forcone</key>
+		<dict>
+			<key>frames</key>
+			<array>
+				<dict>
+					<key>framename</key>
+					<string>forcone_vuoto.png</string>
+					<key>from</key>
+					<integer>1</integer>
+					<key>to</key>
+					<integer>5</integer>
+				</dict>
+				<dict>
+					<key>framename</key>
+					<string>loading_forcone_%04u.png</string>
+					<key>from</key>
+					<integer>2</integer>
+					<key>to</key>
+					<integer>11</integer>
+				</dict>
+				<dict>
+					<key>framename</key>
+					<string>loading_forcone_%04u.png</string>
+					<key>from</key>
+					<integer>10</integer>
+					<key>to</key>
+					<integer>8</integer>
+				</dict>
+				<dict>
+					<key>framename</key>
+					<string>loading_forcone_%04u.png</string>
+					<key>from</key>
+					<integer>9</integer>
+					<key>to</key>
+					<integer>11</integer>
+				</dict>
+				<dict>
+					<key>framename</key>
+					<string>loading_forcone_%04u.png</string>
+					<key>from</key>
+					<integer>10</integer>
+					<key>to</key>
+					<integer>7</integer>
+				</dict>
+			</array>
+		</dict>
+	</dict>
+</dict>
+</plist>

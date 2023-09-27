@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>atlas</key>
+	<string></string>
+	<key>waitImage1</key>
+	<string>2</string>
+	<key>waitImage2</key>
+	<string>3</string>
+	<key>sceneId</key>
+	<string>0</string>
+	<key>backgroundmusic</key>
+	<string></string>
+	<key>Image1</key>
+	<dict>
+		<key>anchor</key>
+		<string>{0.5, 0.5}</string>
+		<key>role</key>
+		<string>image1</string>
+		<key>position</key>
+		<string>{240, 160}</string>
+		<key>image</key>
+		<string>minigames_sfondo.png</string>
+		<key>z</key>
+		<string>2</string>
+		<key>visible</key>
+		<true/>
+	</dict>
+	<key>Image2</key>
+	<dict>
+		<key>anchor</key>
+		<string>{0.5, 0.5}</string>
+		<key>role</key>
+		<string>image2</string>
+		<key>position</key>
+		<string>{240, 160}</string>
+		<key>image</key>
+		<string>minigames_sfondo.png</string>
+		<key>z</key>
+		<string>1</string>
+		<key>visible</key>
+		<false/>
+	</dict>
+</dict>
+</plist>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>atlas</key>
+	<array/>
+	<key>include</key>
+	<string>MimiLandManager.plist</string>
+	<key>_backgroundmusic</key>
+	<string>MENU .caf</string>
+	<key>buttonclick</key>
+	<string>CLIC MENU.caf</string>
+	<key>Erba</key>
+	<dict>
+		<key>layercolor</key>
+		<string>{124,208,2,255}</string>
+		<key>z</key>
+		<string>0</string>
+	</dict>
+	<key>fontname</key>
+	<string>Market Felt</string>
+	<key>fontsize</key>
+	<integer>30</integer>
+	<key>role</key>
+	<string>mainlayer</string>
+	<key>markerposition</key>
+	<string>{512, 384}</string>
+	<key>particlesystemmanager</key>
+	<string>2</string>
+	<key>mimi</key>
+	<dict>
+		<key>z</key>
+		<string>3</string>
+		<key>movingparticle</key>
+		<dict>
+			<key>file</key>
+			<string>particle_grass.plist</string>
+			<key>duration</key>
+			<string>-1</string>
+			<key>behaviour</key>
+			<string>source_follow</string>
+		</dict>
+		<key>attachedsprite</key>
+		<string>cut_grass_cutter.png</string>
+		<key>falldistance</key>
+		<string>145</string>
+		<key>falldistancetol</key>
+		<string>0.1</string>
+		<key>ignoreonfall</key>
+		<true/>
+		<key>startrect</key>
+		<string>{{412, 284}, {200, 200}}</string>
+	</dict>
+	<key>countdown</key>
+	<dict>
+		<key>position_value</key>
+		<string>{240,12}</string>
+		<key>anchor_value</key>
+		<string>{0.5,0.5}</string>
+		<key>z_value</key>
+		<string>100</string>
+		<key>image_name</key>
+		<string>Barra_Energia-1.png</string>
+	</dict>
+	<key>matchtime</key>
+	<string>20</string>
+	<key>gridimages</key>
+	<array>
+		<string>grass1@CutTheGrassAnim.plist</string>
+		<string>grass1@CutTheGrassAnim.plist</string>
+		<string>grass1@CutTheGrassAnim.plist</string>
+		<string>grass1@CutTheGrassAnim.plist</string>
+		<string>grass1@CutTheGrassAnim.plist</string>
+		<string>grass1@CutTheGrassAnim.plist</string>
+		<string>grass1@CutTheGrassAnim.plist</string>
+		<string>grass1@CutTheGrassAnim.plist</string>
+		<string>grass1@CutTheGrassAnim.plist</string>
+		<string>grass2@CutTheGrassAnim.plist</string>
+		<string>grass2@CutTheGrassAnim.plist</string>
+		<string>grass2@CutTheGrassAnim.plist</string>
+		<string>grass2@CutTheGrassAnim.plist</string>
+		<string>grass2@CutTheGrassAnim.plist</string>
+		<string>grass2@CutTheGrassAnim.plist</string>
+		<string>grass2@CutTheGrassAnim.plist</string>
+		<string>grass2@CutTheGrassAnim.plist</string>
+		<string>grass2@CutTheGrassAnim.plist</string>
+		<string>mushroom@CutTheGrassAnim.plist</string>
+		<string>stone@CutTheGrassAnim.plist</string>
+	</array>
+	<key>gridsize</key>
+	<string>{15, 11}</string>
+	<key>gridsizeinpixels</key>
+	<string>{70, 70}</string>
+	<key>gridoffset</key>
+	<string>{0, -50}</string>
+	<key>gamelayer</key>
+	<dict>
+		<key>layercolor</key>
+		<string>{0,0,0,0}</string>
+		<key>role</key>
+		<string>game layer</string>
+		<key>z</key>
+		<string>1</string>
+	</dict>
+</dict>
+</plist>

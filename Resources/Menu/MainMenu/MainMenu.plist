@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>atlas</key>
+	<array/>
+	<key>backgroundmusic</key>
+	<string>MENU .caf</string>
+	<key>buttonclick</key>
+	<string>CLIC MENU.caf</string>
+	<key>fontname</key>
+	<string>Market Felt</string>
+	<key>fontsize</key>
+	<integer>30</integer>
+	<key>background</key>
+	<dict>
+		<key>image</key>
+		<string>mimiland_menu_background.png</string>
+		<key>z</key>
+		<string>-1</string>
+		<key>scene</key>
+		<string>-1</string>
+	</dict>
+	<key>World</key>
+	<dict>
+		<key>layercolor</key>
+		<string>{0,0,0,70}</string>
+		<key>visible</key>
+		<false/>
+		<key>fontname</key>
+		<string>Market Felt</string>
+		<key>fontcolor</key>
+		<string>{128,128,0}</string>
+		<key>z</key>
+		<string>1</string>
+		<key>buttonclick</key>
+		<string>CLIC MENU.caf</string>
+		<key>role</key>
+		<string>submenu</string>
+		<key>hidenode</key>
+		<true/>
+		<key>Draw</key>
+		<dict>
+			<key>stage</key>
+			<string>0@world1</string>
+			<key>positionstar</key>
+			<string>{100, 80}</string>
+			<key>offsetnormal</key>
+			<string>{0,30}</string>
+			<key>itembackground</key>
+			<string>icon_minigame_unlocked.png</string>
+			<key>itembackgroundscale</key>
+			<string>{1,1}</string>
+			<key>disabledimage</key>
+			<string>icon_minigame_locked.png</string>
+			<key>fontsize</key>
+			<string>26</string>
+			<key>fontcolor</key>
+			<string>{255,255,255}</string>
+			<key>fontname</key>
+			<string>Starguide.fnt</string>
+			<key>text</key>
+			<string>DRAW</string>
+			<key>position</key>
+			<string>{120, 150}</string>
+			<key>anchor</key>
+			<string>{0.5, 0.5}</string>
+			<key>rotation</key>
+			<integer>0</integer>
+			<key>scene</key>
+			<integer>12</integer>
+			<key>tintonselect</key>
+			<string>{200, 200, 200}</string>
+			<key>scaleonselect</key>
+			<string>{1, 0.9}</string>
+			<key>rotateonselect</key>
+			<string>0</string>
+			<key>z</key>
+			<string>1</string>
+		</dict>
+		<key>DriveTheScrew</key>
+		<dict>
+			<key>stage</key>
+			<string>0@world1</string>
+			<key>positionstar</key>
+			<string>{100, 80}</string>
+			<key>offsetnormal</key>
+			<string>{0,30}</string>
+			<key>disabledimage</key>
+			<string>icon_minigame_locked.png</string>
+			<key>itembackground</key>
+			<string>icon_minigame_unlocked.png</string>
+			<key>itembackgroundscale</key>
+			<string>{1,1}</string>
+			<key>fontsize</key>
+			<string>26</string>
+			<key>fontcolor</key>
+			<string>{255,255,255}</string>
+			<key>fontname</key>
+			<string>Starguide.fnt</string>
+			<key>text</key>
+			<string>    DRIVE 
+THE SCREW</string>
+			<key>position</key>
+			<string>{350,150}</string>
+			<key>anchor</key>
+			<string>{0.5, 0.5}</string>
+			<key>rotation</key>
+			<integer>0</integer>
+			<key>scene</key>
+			<integer>13</integer>
+			<key>tintonselect</key>
+			<string>{200, 200, 200}</string>
+			<key>scaleonselect</key>
+			<string>{1, 0.9}</string>
+			<key>rotateonselect</key>
+			<string>0</string>
+			<key>z</key>
+			<string>1</string>
+		</dict>
+		<key>CleanTheFloor</key>
+		<dict>
+			<key>stage</key>
+			<string>0@world1</string>
+			<key>disabledimage</key>
+			<string>icon_minigame_locked.png</string>
+			<key>positionstar</key>
+			<string>{100, 80}</string>
+			<key>offsetnormal</key>
+			<string>{0,30}</string>
+			<key>itembackground</key>
+			<string>icon_minigame_unlocked.png</string>
+			<key>itembackgroundscale</key>
+			<string>{1,1}</string>
+			<key>fontsize</key>
+			<string>26</string>
+			<key>fontcolor</key>
+			<string>{255,255,255}</string>
+			<key>fontname</key>
+			<string>Starguide.fnt</string>
+			<key>text</key>
+			<string>   CLEAN 
+THE FLOOR</string>
+			<key>position</key>
+			<string>{120,430}</string>
+			<key>anchor</key>
+			<string>{0.5, 0.5}</string>
+			<key>rotation</key>
+			<integer>0</integer>
+			<key>scene</key>
+			<integer>14</integer>
+			<key>tintonselect</key>
+			<string>{200, 200, 200}</string>
+			<key>scaleonselect</key>
+			<string>{1, 0.9}</string>
+			<key>rotateonselect</key>
+			<string>0</string>
+			<key>z</key>
+			<string>1</string>
+		</dict>
+		<key>BreakTheEgg</key>
+		<dict>
+			<key>stage</key>
+			<string>0@world1</string>
+			<key>disabledimage</key>
+			<string>icon_minigame_locked.png</string>
+			<key>positionstar</key>
+			<string>{100, 80}</string>
+			<key>offsetnormal</key>
+			<string>{0,30}</string>
+			<key>itembackground</key>
+			<string>icon_minigame_unlocked.png</string>
+			<key>itembackgroundscale</key>
+			<string>{1,1}</string>
+			<key>fontsize</key>
+			<string>26</string>
+			<key>fontcolor</key>
+			<string>{255,255,255}</string>
+			<key>fontname</key>
+			<string>Starguide.fnt</string>
+			<key>text</key>
+			<string>  BREAK 
+THE EGG</string>
+			<key>position</key>
+			<string>{350,430}</string>
+			<key>anchor</key>
+			<string>{0.5, 0.5}</string>
+			<key>rotation</key>
+			<integer>0</integer>
+			<key>scene</key>
+			<integer>15</integer>
+			<key>tintonselect</key>
+			<string>{200, 200, 200}</string>
+			<key>scaleonselect</key>
+			<string>{1, 0.9}</string>
+			<key>rotateonselect</key>
+			<string>0</string>
+			<key>z</key>
+			<string>1</string>
+		</dict>
+		<key>CutTheGrass</key>
+		<dict>
+			<key>stage</key>
+			<string>0@world1</string>
+			<key>disabledimage</key>
+			<string>icon_minigame_locked.png</string>
+			<key>positionstar</key>
+			<string>{100, 80}</string>
+			<key>offsetnormal</key>
+			<string>{0,30}</string>
+			<key>itembackground</key>
+			<string>icon_minigame_unlocked.png</string>
+			<key>itembackgroundscale</key>
+			<string>{1,1}</string>
+			<key>fontsize</key>
+			<string>26</string>
+			<key>fontcolor</key>
+			<string>{255,255,255}</string>
+			<key>fontname</key>
+			<string>Starguide.fnt</string>
+			<key>text</key>
+			<string>     CUT 
+THE GRASS</string>
+			<key>position</key>
+			<string>{580,430}</string>
+			<key>anchor</key>
+			<string>{0.5, 0.5}</string>
+			<key>rotation</key>
+			<integer>0</integer>
+			<key>scene</key>
+			<integer>16</integer>
+			<key>tintonselect</key>
+			<string>{200, 200, 200}</string>
+			<key>scaleonselect</key>
+			<string>{1, 0.9}</string>
+			<key>rotateonselect</key>
+			<string>0</string>
+			<key>z</key>
+			<string>1</string>
+		</dict>
+		<key>CrossTheRoad</key>
+		<dict>
+			<key>stage</key>
+			<string>0@world1</string>
+			<key>disabledimage</key>
+			<string>icon_minigame_locked.png</string>
+			<key>positionstar</key>
+			<string>{100, 80}</string>
+			<key>offsetnormal</key>
+			<string>{0,30}</string>
+			<key>itembackground</key>
+			<string>icon_minigame_unlocked.png</string>
+			<key>itembackgroundscale</key>
+			<string>{1,1}</string>
+			<key>fontsize</key>
+			<string>26</string>
+			<key>fontcolor</key>
+			<string>{255,255,255}</string>
+			<key>fontname</key>
+			<string>Starguide.fnt</string>
+			<key>text</key>
+			<string>  CROSS 
+THE ROAD</string>
+			<key>position</key>
+			<string>{580, 150}</string>
+			<key>anchor</key>
+			<string>{0.5, 0.5}</string>
+			<key>rotation</key>
+			<integer>0</integer>
+			<key>scene</key>
+			<integer>17</integer>
+			<key>tintonselect</key>
+			<string>{200, 200, 200}</string>
+			<key>scaleonselect</key>
+			<string>{1, 0.9}</string>
+			<key>rotateonselect</key>
+			<string>0</string>
+			<key>z</key>
+			<string>1</string>
+		</dict>
+	</dict>
+</dict>
+</plist>

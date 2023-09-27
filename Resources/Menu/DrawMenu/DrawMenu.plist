@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>atlas</key>
+	<array/>
+	<key>backgroundmusic</key>
+	<string>MENU .caf</string>
+	<key>buttonclick</key>
+	<string>CLIC MENU.caf</string>
+	<key>fontname</key>
+	<string>Market Felt</string>
+	<key>fontsize</key>
+	<integer>30</integer>
+	<key>role</key>
+	<string>mainLayer</string>
+	<key>back</key>
+	<dict>
+		<key>anchor</key>
+		<string>{0.5, 0.5}</string>
+		<key>image</key>
+		<string>minigames_back.png</string>
+		<key>rotation</key>
+		<string>0</string>
+		<key>position</key>
+		<string>{445, 70}</string>
+		<key>position-iPad</key>
+		<string>{445, 70}</string>
+		<key>scale</key>
+		<string>0.7</string>
+		<key>scaleonselect</key>
+		<string>{0.8, 0.8}</string>
+		<key>scene</key>
+		<string>-1</string>
+		<key>tintonselect</key>
+		<string>{200, 200, 200}</string>
+		<key>z</key>
+		<string>7</string>
+	</dict>
+	<key>play</key>
+	<dict>
+		<key>role</key>
+		<string>play</string>
+		<key>anchor</key>
+		<string>{0.5, 0.5}</string>
+		<key>image</key>
+		<string>minigames_play.png</string>
+		<key>rotation</key>
+		<string>0</string>
+		<key>position</key>
+		<string>{445, 250}</string>
+		<key>position-iPad</key>
+		<string>{445, 250}</string>
+		<key>scale</key>
+		<string>0.7</string>
+		<key>scaleonselect</key>
+		<string>{0.8, 0.8}</string>
+		<key>scene</key>
+		<string>-1</string>
+		<key>tintonselect</key>
+		<string>{200, 200, 200}</string>
+		<key>z</key>
+		<string>7</string>
+	</dict>
+	<key>repeat</key>
+	<dict>
+		<key>role</key>
+		<string>repeat</string>
+		<key>anchor</key>
+		<string>{0.5, 0.5}</string>
+		<key>image</key>
+		<string>minigames_replay.png</string>
+		<key>rotation</key>
+		<string>0</string>
+		<key>position</key>
+		<string>{445, 160}</string>
+		<key>position-iPad</key>
+		<string>{445, 160}</string>
+		<key>scale</key>
+		<string>0.7</string>
+		<key>scaleonselect</key>
+		<string>{0.8, 0.8}</string>
+		<key>scene</key>
+		<string>-2</string>
+		<key>tintonselect</key>
+		<string>{200, 200, 200}</string>
+		<key>z</key>
+		<string>7</string>
+	</dict>
+</dict>
+</plist>

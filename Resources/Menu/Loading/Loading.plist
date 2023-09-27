@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>atlas</key>
+	<string>loading_parts-hd.plist</string>
+	<key>buttonclick</key>
+	<string>CLIC MENU.caf</string>
+	<key>backgroundmusic</key>
+	<string></string>
+	<key>fontname</key>
+	<string>Starguide.fnt</string>
+	<key>fontsize</key>
+	<string>36</string>
+	<key>fontcolor</key>
+	<string>{255,255,255}</string>
+	<key>background</key>
+	<dict>
+		<key>image</key>
+		<string>loading_sfondo-hd.png</string>
+		<key>z</key>
+		<string>-1</string>
+	</dict>
+	<key>loading</key>
+	<dict>
+		<key>role</key>
+		<string>loading</string>
+		<key>text</key>
+		<string>LOADING ...</string>
+		<key>text-it</key>
+		<string>CARICAMENTO ...</string>
+		<key>position</key>
+		<string>{240, 70}</string>
+		<key>position-iPad</key>
+		<string>{512, 100}</string>
+		<key>anchor</key>
+		<string>{0.5, 0.5}</string>
+		<key>rotation</key>
+		<integer>0</integer>
+		<key>z</key>
+		<string>1</string>
+	</dict>
+	<key>presstocontinue</key>
+	<dict>
+		<key>role</key>
+		<string>press to continue</string>
+		<key>visible</key>
+		<false/>
+		<key>text</key>
+		<string>PRESS TO CONTINUE2</string>
+		<key>text-it</key>
+		<string>PREMI PER INIZIARE</string>
+		<key>activearea</key>
+		<string>{{0, 0},{480,320}}</string>
+		<key>activearea-iPad</key>
+		<string>{{0, 0},{1024,760}}</string>
+		<key>position</key>
+		<string>{240, 70}</string>
+		<key>position-iPad</key>
+		<string>{512, 100}</string>
+		<key>anchor</key>
+		<string>{0.5, 0.5}</string>
+		<key>rotation</key>
+		<integer>0</integer>
+		<key>scene</key>
+		<integer>-1</integer>
+		<key>tintonselect</key>
+		<string>{200, 200, 200}</string>
+		<key>scaleonselect</key>
+		<string>{0.9, 0.9}</string>
+		<key>rotateonselect</key>
+		<string>0</string>
+		<key>z</key>
+		<string>1</string>
+	</dict>
+	<key>forcone</key>
+	<dict>
+		<key>role</key>
+		<string>forcone</string>
+		<key>image</key>
+		<string>@Loading_forcone_Anim.plist</string>
+		<key>z</key>
+		<string>1</string>
+		<key>visible</key>
+		<false/>
+	</dict>
+</dict>
+</plist>

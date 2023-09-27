@@ -1,0 +1,1049 @@
+//
+//  ANCScene.m
+//  Prova
+//
+//  Created by mad4chip on 21/05/11.
+//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//
+
+#import "ANCScene.h"
+#import "CocosAddOn.h"
+#import "ANCSprite.h"
+#import "ANCAnimationCache.h"
+#import "ObjectiveCAddOn.h"
+#import "functions.h"
+#import "ColoredSquareSprite.h"
+#import "ColoredCircleSprite.h"
+#import "SoundManager.h"
+#import "SoundDescriptor.h"
+#import "ANCParticleSystemManager.h"
+
+@implementation ANCScene
+
+-(void)disableMenus
+{
+	CCNode	*Layer	= (CCNode*)children_->data->arr[0];
+	ANCMenuAdvanced *child;
+	CCARRAY_FOREACH(Layer.children, child)
+	if ([child isKindOfClass:[ANCMenuAdvanced class]])
+		 child.isDisabled = true;
+}
+
+-(void)enableMenus
+{
+	CCNode	*Layer	= (CCNode*)children_->data->arr[0];
+	ANCMenuAdvanced *child;
+	CCARRAY_FOREACH(Layer.children, child)
+		if ([child isKindOfClass:[ANCMenuAdvanced class]])
+			 child.isDisabled = false;
+}
+
++(id)initMenu
+{
+	return [[[self alloc] initMenu] autorelease];
+}
+
+-(id)initMenu
+{
+	NSAssert(false, @"Please override me");
+	return nil;
+}
+
++(id)sceneWithFile: (NSString *)FileName SceneManager: (id<SceneManagerProtocol>)Manager
+{
+	return [[[self alloc] initWithFile: FileName SceneManager: Manager] autorelease];
+}
+
++(id)sceneWithFile: (NSString *)FileName SceneManager: (id<SceneManagerProtocol>)Manager RoleHandler: (id<RoleHandlerProtocol>)Handler
+{
+	return [[[self alloc] initWithFile: FileName SceneManager: Manager RoleHandler: Handler] autorelease];
+}
+/*
++(id)sceneWithDictionary: (NSDictionary *)Dictionary SceneManager: (id<SceneManagerProtocol>)Manager
+{
+	return [[[self alloc] initWithDictionary: (NSDictionary *)Dictionary SceneManager: Manager] autorelease];
+}
+*/
+-(bool)RoleHandler: (CCNode*)Node andData: (NSDictionary*)Dictionary
+{	return true;	}
+
+-(void)BtnClick: (CCMenuItem*)Button
+{
+	if ([SceneManager respondsToSelector: @selector(BtnClick:)])
+		[SceneManager BtnClick: Button];
+	else if ([SceneManager respondsToSelector: @selector(ChangeScene:)])
+	{
+		NSAssert(Button.tag >= 0, @"Only tag >= 0 are supported");
+		[SceneManager ChangeScene: Button.tag];
+	}
+	else NSAssert(false, @"%@ must implement at least one of methods BtnClick: or ChangeScene:", [self class]);
+}
+
+-(id)initWithFile: (NSString *)FileName
+{
+	return [self initWithFile: FileName SceneManager: nil ];
+}
+
+-(id)initWithFile: (NSString *)FileName SceneManager: (id<SceneManagerProtocol>)Manager;
+{
+	return [self initWithFile: FileName SceneManager: Manager RoleHandler: nil];
+}
+
+-(id)initWithFile: (NSString *)FileName SceneManager: (id<SceneManagerProtocol>)Manager RoleHandler: (id<RoleHandlerProtocol>)Handler
+{
+	if ((self = [self init]))
+	{
+#ifdef __IPHONE_OS_VERSION_MAX_ALLOWED
+		isStandardTouchEnabled_	= false;
+		isTargetedTouchEnabled_	= false;
+		isAccelerometerEnabled_	= false;
+#elif defined(__MAC_OS_X_VERSION_MAX_ALLOWED)
+		isMouseEnabled_			= false;
+		isKeyboardEnabled_		= false;
+#endif
+		
+		SceneManager			= Manager;
+		RoleHandler				= Handler;
+		if (RoleHandler == nil)	RoleHandler	= self;
+		ConfigurationFile_		= [FileName retain];
+		ConfigurationContent	= nil;
+		IncludedFiles			= nil;
+		loaded					= false;
+
+		MemoryBehaviour			= [self defaultMemoryBehaviour];
+		if (ConfigurationFile_)
+		{
+			ConfigurationContent	= [NSMutableDictionary dictionaryWithContentsOfFile: [CCFileUtils fullPathFromRelativePath: ConfigurationFile_]];
+			[ConfigurationContent retain];
+			NSString *Value;
+			
+			if ((Value = [ConfigurationContent objectForKey: @"uselazyload"]))		MemoryBehaviour.UseLazyLoad		= [Value boolValue];
+			if ((Value = [ConfigurationContent objectForKey: @"loadoncreate"]))		MemoryBehaviour.LoadOnCreate	= [Value boolValue];
+			if ((Value = [ConfigurationContent objectForKey: @"unloadonhide"]))		MemoryBehaviour.UnloadOnHide	= [Value boolValue];
+
+			if ((!MemoryBehaviour.UseLazyLoad) || (MemoryBehaviour.LoadOnCreate))
+				[self reloadScene];
+		}
+	}
+	return self;
+}
+
+-(void)dealloc
+{
+	CCLOG(@"ANCScene dealloc %@", [self class]);
+	[IncludedFiles			release];
+	[ConfigurationContent	release];
+	[ConfigurationFile_		release];
+	[BackgroundMusic		release];
+	[super dealloc];
+}
+
+-(void)ParseDictionary: (NSDictionary *)Dictionary Parent: (CCNode*)Parent
+{
+	NSAssert(Dictionary, @"Dictionary cannot be nil");
+
+	CGPoint				BtnPosition;
+	ANCSprite			*NormalSprite;
+	ANCSprite			*SelectedSprite;
+	ANCSprite			*DisabledSprite;
+
+	ANCSprite			*ItemBackground;
+	CGPoint				ItemBackgroundScale;
+	
+	NSString			*ItemBackgroundFile;
+	ANCSprite			*ItemForeground;
+	NSString			*ItemForegroundFile;
+	
+	ANCMenuButton		*MenuButton;
+	NSDictionary		*ButtonData;
+	NSString			*Scene;
+	NSString			*Value;
+	CGPoint				Anchor;
+	bool				AutoAnchor		= false;
+	float				BtnRotation;
+	int					z;
+	ANCMenuAdvanced		*Menu			= nil;
+	CCLayer				*Layer;
+
+	NSString			*ButtonText;
+	NSString			*FontName;
+	int					FontSize;
+	ccColor3B			FontColor	= ccc3(255, 255, 255);
+	ccColor4B			Color;
+	SoundDescriptor		*Sound				= nil;
+	SoundDescriptor		*DisabledSound		= nil;
+
+	if ((Value = [Dictionary localizedObjectForKey: @"layercolor"]))
+	{
+		ccColor4B	StartColor			= ccColor4BFromString(Value);
+		if ((Value = [Dictionary localizedObjectForKey: @"layerendcolor"]))
+		{
+			Color						= ccColor4BFromString(Value);
+			if ((Value = [Dictionary localizedObjectForKey: @"vector"]))
+							Layer		= [CCLayerGradient layerWithColor: StartColor fadingTo: Color alongVector: CGPointFromString(Value)];
+			else			Layer		= [CCLayerGradient layerWithColor: StartColor fadingTo: Color];
+		}
+		else				Layer		= [CCLayerColor layerWithColor: StartColor];
+	}
+//	else if (FirstLayer)	Layer		= self;
+	else					Layer		= [CCLayerColor layerWithColor: ccc4(0, 0, 0, 0)];
+	if (([Dictionary localizedObjectForKey: @"role"]) &&
+		(![RoleHandler RoleHandler: Layer andData: Dictionary]))
+			return;
+	Layer.anchorPoint	= CGPointZero;
+	Layer.position		= CGPointZero;
+	if (FirstLayer)
+	{
+		Value							= [Dictionary localizedObjectForKey: @"usevertexz"];
+		if ((Value) && ([Value boolValue]))
+			useVertexZ					= true;
+	}
+	else
+	{
+		if ((Value = [Dictionary localizedObjectForKey: @"anchor"]))	Layer.anchorPoint	= CGPointFromString(Value);
+		if ((Value = [Dictionary localizedObjectForKey: @"position"]))	Layer.position		= CGPointFromString(Value);
+		if ((Value = [Dictionary localizedObjectForKey: @"size"]))		[Layer setContentSize: CGSizeFromString(Value)];
+		Layer.isRelativeAnchorPoint		= true;
+	}
+
+	if (!(Value = [Dictionary localizedObjectForKey: @"z"]))
+	{
+		NSAssert(FirstLayer, @"Missing z for Layer");	// il primo layer può non avere z
+		z								= 0;
+	}
+	else	z							= [Value intValue];
+	FirstLayer	= false;
+
+	if ((Value = [Dictionary localizedObjectForKey: @"particlesystemmanager"]))
+		[Layer addChild: [ANCParticleSystemManager newParticleSystemManager] z: [Value intValue]];
+
+	if ((Value = [Dictionary localizedObjectForKey: @"include"]))
+	{
+		if (!IncludedFiles)
+			IncludedFiles	= [[NSMutableDictionary dictionaryWithCapacity: 1] retain];
+		if ([Value isKindOfClass: [NSArray class]])
+			for (NSString *Name in (NSArray*)Value)
+			{
+				NSDictionary	*FileContent	= [NSDictionary dictionaryWithContentsOfFile: [CCFileUtils fullPathFromRelativePath: Name]];
+				NSAssert1(FileContent, @"Unable to include file %@", Name);
+				[IncludedFiles setObject: FileContent forKey: Name];
+				[self ParseDictionary: FileContent Parent: Layer];
+			}
+		else
+		{
+			NSDictionary	*FileContent	= [NSDictionary dictionaryWithContentsOfFile: [CCFileUtils fullPathFromRelativePath: Value]];
+			NSAssert1(FileContent, @"Unable to include file %@", Value);
+			[IncludedFiles setObject: FileContent forKey: Value];
+			[self ParseDictionary: FileContent Parent: Layer];
+		}
+	}
+
+	if ((useVertexZ) && 
+		(Value = [Dictionary localizedObjectForKey: @"vertexz"]))
+			Layer.vertexZ	= [Value floatValue];
+	[Parent addChild: Layer z: z];
+	SetVertexZForNode(Dictionary, Layer);
+	if ((Value = [Dictionary localizedObjectForKey: @"visible"]) && (![Value boolValue]))
+		Layer.visible					= false;
+	if ((Value = [Dictionary localizedObjectForKey: @"hidenode"]) && (![Value boolValue]))
+		[Layer hideNode];
+
+	if ((Value = [Dictionary localizedObjectForKey: @"atlas"]))
+		[[ANCAnimationCache sharedAnimationCache] loadAtlasFile: Value];
+
+	ItemBackgroundFile					= [Dictionary localizedObjectForKey: @"itembackground"];
+	ItemForegroundFile					= [Dictionary localizedObjectForKey: @"itemForeground"];
+	FontName							= [Dictionary localizedObjectForKey: @"fontname"];
+	FontSize							= [[Dictionary localizedObjectForKey: @"fontsize"] intValue];
+	if ((Value = [Dictionary localizedObjectForKey: @"fontcolor"]))
+		FontColor						= ccColor3BFromString(Value);
+	if ((Value = [Dictionary localizedObjectForKey: @"buttonclick"]))
+		Sound							= [SoundDescriptor soundDescriptorFromDictionary: (NSDictionary*)Value];
+	if ((Value = [Dictionary localizedObjectForKey: @"disabledclick"]))
+		DisabledSound					= [SoundDescriptor soundDescriptorFromDictionary: (NSDictionary*)Value];
+
+	for (NSString *Key in Dictionary)
+	{
+		ButtonData						= [Dictionary localizedObjectForKey: Key];
+		if (![ButtonData isKindOfClass: [NSDictionary class]])
+			continue;	//evita le stringhe che definiscono il layer
+		if ([ButtonData localizedObjectForKey: @"layercolor"])
+		{//gruppi di tasti
+			[self ParseDictionary: ButtonData Parent: Layer];
+			continue;
+		}
+
+		if ((Value = [ButtonData localizedObjectForKey: @"include"]))
+		{
+			if ([Value isKindOfClass: [NSArray class]])
+				for (NSString *Name in (NSArray*)Value)
+				{
+					NSDictionary	*FileContent	= [NSDictionary dictionaryWithContentsOfFile: [CCFileUtils fullPathFromRelativePath: Name]];
+					NSAssert1(FileContent, @"Unable to include file %@", Name);
+					[self ParseDictionary: FileContent Parent: Layer];
+				}
+			else
+			{
+				NSDictionary	*FileContent	= [NSDictionary dictionaryWithContentsOfFile: [CCFileUtils fullPathFromRelativePath: Value]];
+				NSAssert1(FileContent, @"Unable to include file %@", Value);
+				[self ParseDictionary: FileContent Parent: Layer];
+			}
+			continue;
+		}
+
+		CCLOG(@"ANCScene Key %@", Key);
+		Value							= [ButtonData localizedObjectForKey: @"z"];
+		if (!Value)	continue;
+		z								= [Value intValue];
+
+		if ((Value = [ButtonData localizedObjectForKey: @"anchor"]))
+		{
+			if ([Value isEqualToString: @"auto"])
+					AutoAnchor			= true;
+			else	Anchor				= CGPointFromString(Value);
+		}
+		else	Anchor					= CGPointZero;
+		
+		if ((Value = [ButtonData localizedObjectForKey: @"position"]))
+					BtnPosition			= CGPointFromString(Value);
+		else		BtnPosition			= CGPointZero;
+		
+		if ((Value = [ButtonData localizedObjectForKey: @"tmx"]))
+		{
+			CCTMXTiledMap *TMX_Map		= [CCTMXTiledMap tiledMapWithTMXFile: Value];
+			TMX_Map.anchorPoint			= Anchor;
+			TMX_Map.position			= BtnPosition;
+			if (([ButtonData localizedObjectForKey: @"role"]) &&
+				(![RoleHandler RoleHandler: TMX_Map andData: ButtonData]))
+					return;			
+			[Layer addChild:TMX_Map z: z];
+
+			if ((useVertexZ) &&
+				(Value = [Dictionary localizedObjectForKey: @"vertexz"]))
+			{
+				float	VertexZ	= [Value floatValue];
+				CCNode	*Node;
+				TMX_Map.vertexZ	= VertexZ;
+				CCARRAY_FOREACH(TMX_Map.children, Node)
+				{
+					Node.vertexZ	= VertexZ;
+				}
+			}
+			continue;
+		}
+
+		ButtonText		= nil;//uso ButtonText due volte non levare
+		NormalSprite	= nil;
+		DisabledSprite	= nil;
+		SelectedSprite	= nil;
+		ItemBackground	= nil;
+		ItemForeground	= nil;
+		if ((Value = [ButtonData localizedObjectForKey: @"image"]))
+		{
+			CCFiniteTimeAction	*Action;
+			NormalSprite	= [ANCSprite spriteWithFile: Value];
+			Action			= (CCFiniteTimeAction*)[NormalSprite getActionByTag: ANIMATION_TAG];
+			if (([Action isKindOfClass: [CCFiniteTimeAction class]]) &&
+				(Action.duration > delay))
+					delay	= Action.duration;
+			if ((Value = [ButtonData localizedObjectForKey: @"crop"]))
+				[NormalSprite setCropArea: CGRectFromString(Value)];
+
+			if ((Value = [ButtonData localizedObjectForKey: @"scale"]))
+			{
+				CGPoint	tempP;
+				float	tempF			= [Value floatValue];
+				if (tempF != 0)
+						tempP	= ccp(tempF, tempF);
+				else	tempP	= CGPointFromString(Value);
+				if (tempP.x != 0)
+				{
+					NormalSprite.scaleX	= fabs(tempP.x);
+					if (tempP.x < 0)	NormalSprite.flipX	= true;
+				}
+				if (tempP.y != 0)
+				{
+					NormalSprite.scaleY	= fabs(tempP.y);
+					if (tempP.y < 0)	NormalSprite.flipY	= true;
+				}
+			}
+			else if ((Value = [ButtonData localizedObjectForKey: @"scaletosize"]))
+			{
+				float	tempF			= [Value floatValue];
+				if (tempF != 0)
+						[NormalSprite scaleToSize: CGSizeMake(tempF, tempF) keepAspect: true];
+				else	[NormalSprite scaleToSize: CGSizeFromString(Value)  keepAspect: true];
+			}			
+			else if ((Value = [ButtonData localizedObjectForKey: @"stretchtosize"]))
+			{
+				float	tempF			= [Value floatValue];
+				if (tempF != 0)
+						[NormalSprite scaleToSize: CGSizeMake(tempF, tempF) keepAspect: false];
+				else	[NormalSprite scaleToSize: CGSizeFromString(Value)  keepAspect: false];
+			}
+		}
+		else
+		{
+			if ((Value = [ButtonData localizedObjectForKey: @"color"]))
+					Color	= ccColor4BFromString(Value);
+			else	Color	= ccc4(255, 255, 255, 255);			
+
+			if ((Value = [ButtonData localizedObjectForKey: @"circleradius"]))
+				NormalSprite	= [ColoredCircleSprite circleWithColor: Color radius: [Value floatValue]];
+			else if ((Value = [ButtonData localizedObjectForKey: @"rectanglesize"]))
+				NormalSprite	= [ColoredSquareSprite squareWithColor: Color size: CGSizeFromString(Value)];
+			else if ((ButtonText = [ButtonData localizedObjectForKey: @"text"]))
+			{
+				if ((Value = [ButtonData localizedObjectForKey: @"fontname"]))	FontName	= Value;
+				if ((Value = [ButtonData localizedObjectForKey: @"fontsize"]))	FontSize	= [Value intValue];
+				if ((Value = [ButtonData localizedObjectForKey: @"fontcolor"]))	FontColor	= ccColor3BFromString(Value);
+				NSAssert(FontName, @"Please set a font name to use");
+				NSAssert(FontSize > 0, @"Please set a fontsize");
+				if(([FontName rangeOfString:@".fnt"].location) != ([FontName length] - 4))
+				{	
+					//uso il font normale
+					if ((Value = [ButtonData localizedObjectForKey: @"textarea"]))
+					{
+						CGSize			TextSize	= CGSizeFromString(Value);
+						CCTextAlignment	Alignment;
+						if ((Value = [ButtonData localizedObjectForKey: @"textalignment"]))
+						{
+							if		([Value isEqualToString: @"center"])	Alignment	= CCTextAlignmentCenter;
+							else if ([Value isEqualToString: @"left"])		Alignment	= CCTextAlignmentLeft;
+							else if ([Value isEqualToString: @"right"])		Alignment	= CCTextAlignmentRight;
+						}
+						else Alignment		= CCTextAlignmentLeft;
+						NormalSprite		= [CCLabelTTF labelWithString: ButtonText dimensions: TextSize alignment: Alignment fontName: FontName fontSize: FontSize];
+					}
+					else	NormalSprite	= [CCLabelTTF labelWithString: ButtonText fontName: FontName fontSize: FontSize];
+					NormalSprite.color		= FontColor;
+				}
+				else
+				{
+					//uso il font preso dall'immagine
+					if(([ButtonData localizedObjectForKey: @"textarea"]))
+						CCLOG(@"Text Area could not be used! CUSTOM FONT");
+					if((Value = [ButtonData localizedObjectForKey: @"text"]))
+					{
+						NormalSprite = [CCLabelBMFont labelWithString:Value fntFile:FontName];
+						((CCLabelBMFont *)NormalSprite).Fontsize	= FontSize;
+						((CCLabelBMFont *)NormalSprite).color		= FontColor;
+						NormalSprite.contentSize = [NormalSprite TrimmedRect].size;
+					}
+				}
+			}
+		}
+		BtnRotation						= [[ButtonData localizedObjectForKey: @"rotation"] floatValue];
+		if ((Scene = [ButtonData localizedObjectForKey: @"scene"]))
+		{//tasto di un menu
+			if (NormalSprite)
+			{
+				if ((Value = [ButtonData localizedObjectForKey: @"selectedimage"]))
+				{
+					SelectedSprite	= [ANCSprite spriteWithFile: Value];
+					SelectedSprite.scaleX	= NormalSprite.scaleX;
+					SelectedSprite.scaleY	= NormalSprite.scaleY;				
+				}
+/*				else if (ButtonText)
+				{
+					if ((Value = [ButtonData localizedObjectForKey: @"fontname"]))	FontName	= Value;
+					if ((Value = [ButtonData localizedObjectForKey: @"fontsize"]))	FontSize	= [Value intValue];
+					if ((Value = [ButtonData localizedObjectForKey: @"fontcolor"]))	FontColor	= ccColor3BFromString(Value);
+					NSAssert(FontName, @"Please set a font name to use");
+					NSAssert(FontSize > 0, @"Please set a fontsize");
+					SelectedSprite			= [CCLabelTTF labelWithString: ButtonText fontName: FontName fontSize: FontSize];
+				}
+*/	/*			else									   
+				{
+					SelectedSprite			= [[NormalSprite copy] autorelease];
+					if ((Value = [ButtonData localizedObjectForKey: @"scaleonselect"]))
+					{
+						CGPoint	temp				= CGPointFromString(Value);
+						SelectedSprite.scaleX		= temp.x * NormalSprite.scaleX;
+						SelectedSprite.scaleY		= temp.y * NormalSprite.scaleY;
+					}
+					if ((Value = [ButtonData localizedObjectForKey: @"tintonselect"]))
+						SelectedSprite.color	= ccColor3BFromString(Value);
+				}
+				Value					= [ButtonData localizedObjectForKey: @"rotateonselect"];
+				SelectedSprite.rotation	= (BtnRotation + [Value floatValue]) / 180 * M_PI;
+	 */
+			}
+			else
+			{
+				Value						= [ButtonData localizedObjectForKey: @"size"];
+				NSAssert1(Value, @"Missing size for button", Key);
+				CGSize Size					= CGSizeFromString(Value);
+				NormalSprite				= [ColoredSquareSprite squareWithColor: ccc4(255, 255, 255, 0) size: Size];
+				SelectedSprite				= [ColoredSquareSprite squareWithColor: ccc4(255, 255, 255, 0) size: Size];
+			}
+
+			if ((Value = [ButtonData localizedObjectForKey: @"disabledimage"]))
+				DisabledSprite			= [ANCSprite spriteWithFile: Value];
+			/*if ((Value = [ButtonData localizedObjectForKey: @"tintdisabled"]))
+			{
+				if (!DisabledSprite)
+					DisabledSprite		= [[NormalSprite copy] autorelease];
+				DisabledSprite.color	= ccColor3BFromString(Value);
+			}* /
+			if ((Value = [ButtonData localizedObjectForKey: @"opacitydisabled"]))
+			{
+				if (!DisabledSprite)
+					DisabledSprite		= [[NormalSprite copy] autorelease];
+				DisabledSprite.opacity	= [Value floatValue];
+			}*/
+
+			//creo qui MenuButton per poterlo passare a RoleHandler
+			//verifico se c'è un background internamente
+			if ((Value = [ButtonData localizedObjectForKey: @"itembackground"]))	
+				ItemBackground	= [ANCSprite spriteWithFile: Value];
+			else if (ItemBackgroundFile)	
+				ItemBackground	= [ANCSprite spriteWithFile: ItemBackgroundFile];
+			if ((Value = [ButtonData localizedObjectForKey: @"itembackgroundscale"]))	
+				ItemBackgroundScale		= CGPointFromString(Value);
+			else ItemBackgroundScale	= ccp(1,1);
+						//verifico se c'è un foreground internamente
+			if ((Value = [ButtonData localizedObjectForKey: @"foreground"]))	
+				ItemForeground	= [ANCSprite spriteWithFile: Value];
+			else if (ItemForegroundFile)	
+				ItemForeground	= [ANCSprite spriteWithFile: ItemForegroundFile];
+
+			
+			MenuButton	= [ANCMenuButton itemFromNormalSprite: NormalSprite selectedSprite: SelectedSprite disabledSprite: DisabledSprite target: self selector: @selector(BtnClick:)];
+			if ((Value = [ButtonData localizedObjectForKey: @"buttonclick"]))		Sound						= [SoundDescriptor soundDescriptorFromDictionary: (NSDictionary*)Value];
+			if ((Value = [ButtonData localizedObjectForKey: @"disabledclick"]))		DisabledSound				= [SoundDescriptor soundDescriptorFromDictionary: (NSDictionary*)Value];
+			MenuButton.Sound					= Sound;
+			MenuButton.DisabledSound			= DisabledSound;
+			MenuButton.backgroundImage			= ItemBackground;
+			MenuButton.backgroundImage.scaleX	= ItemBackgroundScale.x;
+			MenuButton.backgroundImage.scaleY	= ItemBackgroundScale.y;
+			MenuButton.foregroundImage			= ItemForeground;
+			//marina
+			if ((Value = [ButtonData localizedObjectForKey: @"enabled"]))
+				MenuButton.isEnabled = [Value boolValue];
+			
+			if ((Value = [ButtonData localizedObjectForKey: @"tintdisabled"]))		MenuButton.TintDisabled		= ccColor4BFromString(Value);
+			if ((Value = [ButtonData localizedObjectForKey: @"tintonselect"]))		MenuButton.TintOnSelect		= ccColor4BFromString(Value);
+			if ((Value = [ButtonData localizedObjectForKey: @"scale"]))
+			{
+				CGPoint	temp				= CGPointFromPointOrFloatString(Value);
+				MenuButton.scaleX			= temp.x;
+				MenuButton.scaleY			= temp.y;
+			}
+			MenuButton.rotation				= BtnRotation;
+
+			CGTransform	TransformOnSelect	= CGTransformNone;
+			TransformOnSelect.rotation		= BtnRotation;
+			if ((Value = [ButtonData localizedObjectForKey: @"rotateonselect"]))	TransformOnSelect.rotation	+= [Value floatValue];
+			if ((Value = [ButtonData localizedObjectForKey: @"scaleonselect"]))
+			{
+				CGPoint	temp				= CGPointFromPointOrFloatString(Value);
+				TransformOnSelect.scaleX	= temp.x;
+				TransformOnSelect.scaleY	= temp.y;
+			}
+			MenuButton.TransformOnSelect	= TransformOnSelect;
+			MenuButton.tag					= [Scene intValue];
+		}
+		else
+		{
+			NormalSprite.rotation			= BtnRotation;
+			if (!NormalSprite)
+			{
+				NSLog(@"Missing image for %@", Key);
+				continue;
+			}
+		}
+		if (([ButtonData localizedObjectForKey: @"role"]) &&
+			(![RoleHandler RoleHandler: ((Scene)?((CCNode*)MenuButton):((CCNode*)NormalSprite)) andData: ButtonData]))
+				continue;
+
+		[Layer addChild: NormalSprite	z: z];
+		SetVertexZForNode(ButtonData, NormalSprite);
+
+		if (Scene)
+		{
+			if (SelectedSprite)
+			{
+				[Layer addChild: SelectedSprite	z: z];
+				SetVertexZForNode(ButtonData, SelectedSprite);
+			}
+			if (DisabledSprite)
+			{
+				[Layer addChild: DisabledSprite	z: z];
+				SetVertexZForNode(ButtonData, DisabledSprite);
+			}
+
+			if (!Menu)
+			{
+				Menu	= [ANCMenuAdvanced menuWithItems: nil];
+				[Layer addChild: Menu];
+				if (!Layer.visible)	Menu.isDisabled	= true;
+				if ((Value = [Dictionary localizedObjectForKey: @"menuanchor"]))	Menu.anchorPoint	= CGPointFromString(Value);
+				if ((Value = [Dictionary localizedObjectForKey: @"menuposition"]))	Menu.position		= CGPointFromString(Value);
+				if ((Value = [Dictionary localizedObjectForKey: @"menupriority"]))	Menu.priority		= [Value intValue];
+			}
+			if (ItemBackground)
+			{
+				[Layer addChild: ItemBackground z: z-1];
+				SetVertexZForNode(ButtonData, ItemBackground);
+			}
+			if (ItemForeground)
+			{
+				[Layer addChild: ItemForeground z: z+1];
+				SetVertexZForNode(ButtonData, ItemForeground);
+			}
+
+			[Menu addChild: MenuButton];//non disegna nulla quindi non importa z
+			if (AutoAnchor)
+			{
+				[NormalSprite autoCenter];
+				MenuButton.anchorPoint	= NormalSprite.anchorPoint;
+			}
+			else	MenuButton.anchorPoint	= Anchor;
+			MenuButton.position		= BtnPosition;
+			if ((Value = [ButtonData localizedObjectForKey: @"activearea"]))
+				[MenuButton setActiveArea: CGRectFromString(Value)];
+			if ((Value = [ButtonData localizedObjectForKey: @"visible"]) && (![Value boolValue]))
+				MenuButton.visible		= false;
+
+#ifdef SHOW_MENU_AREA
+			CCSprite	*PlaceHolder	= [ColoredSquareSprite squareWithColor: ccc4(0, 128, 0, 64) size: [MenuButton boundingBox].size];
+			PlaceHolder.position		= NormalSprite.position;
+			PlaceHolder.rotation		= NormalSprite.rotation;
+			PlaceHolder.anchorPoint		= NormalSprite.anchorPoint;
+			[Layer addChild: PlaceHolder z: 1000];
+			
+#endif
+		}
+		else
+		{
+			if (AutoAnchor)
+					[NormalSprite autoCenter];				
+			else	NormalSprite.anchorPoint	= Anchor;
+			NormalSprite.position				= BtnPosition; 
+			if ((Value = [ButtonData localizedObjectForKey: @"visible"]) && (![Value boolValue]))
+			{
+				NormalSprite.visible	= false;
+				if([NormalSprite respondsToSelector:@selector(StopAnimation)])
+					[NormalSprite StopAnimation];
+			}
+		}
+	}
+//fine for
+	if (Menu)
+	{
+		CGSize		MenuSize;
+		NSString	*MenuSizeStr	= [Dictionary localizedObjectForKey: @"menusize"];
+		NSString	*AlignStr		= [Dictionary localizedObjectForKey: @"menualign"];
+		NSString	*Padding		= [Dictionary localizedObjectForKey: @"menupadding"];
+		
+		if (AlignStr)
+		{
+			[[Menu children] sortUsingSelector: @selector(compareItemWithItem:)];
+
+			float	temp;
+			if		(([AlignStr isEqualToString: @"bottomtotop"]) ||
+					 ([AlignStr isEqualToString: @"toptobottom"]))
+			{
+				[Menu alignItemsVerticallyWithPadding:   [Padding floatValue] bottomToTop: [AlignStr isEqualToString: @"bottomtotop"]];
+				if (MenuSizeStr)
+				{
+					MenuSize			= [Menu contentSize];
+					temp				= [MenuSizeStr floatValue];
+					if (temp < MenuSize.height)
+						MenuSize.height	= temp;
+				}
+			}
+			else if	(([AlignStr isEqualToString: @"lefttoright"]) ||
+					 ([AlignStr isEqualToString: @"righttoleft"]))
+			{
+				[Menu alignItemsHorizontallyWithPadding: [Padding floatValue] leftToRight: [AlignStr isEqualToString: @"lefttoright"]];
+				if (MenuSizeStr)
+				{
+					MenuSize			= [Menu contentSize];
+					temp				= [MenuSizeStr floatValue];
+					if (temp < MenuSize.width)
+						MenuSize.width	= temp;
+				}
+			}
+			else if ([AlignStr rangeOfString: @"grid"].location != NSNotFound)
+			{
+				int	Align		= 0;
+				if ([AlignStr rangeOfString: @"righttoleft"].location != NSNotFound)
+					Align				+= MENU_ALIGN_RIGHT_TO_LEFT;
+				if ([AlignStr rangeOfString: @"bottomtotop"].location != NSNotFound)
+					Align				+= MENU_ALIGN_BOTTOM_TO_TOP;
+				int ItemsNum;
+
+				if ((Value		= [Dictionary localizedObjectForKey: @"menurows"]))
+					Align				+= MENU_ALIGN_ROWS_NUM;
+				else if ((Value	= [Dictionary localizedObjectForKey: @"menucols"]))
+					Align				+= MENU_ALIGN_COLS_NUM;
+				else	NSAssert(false, @"Specify cols or rows num of the grid"); 
+				ItemsNum				= [Value intValue];
+
+				[Menu allignItemsInGridWithPadding: CGSizeFromString(Padding) align: Align itemsNum: ItemsNum];
+				if (MenuSizeStr)
+				{
+					temp				= [MenuSizeStr floatValue];
+					MenuSize			= [Menu contentSize];
+					if (temp != 0)
+					{
+						if (Align & MENU_ALIGN_ROWS_NUM)
+						{
+							if (temp < MenuSize.width)
+								MenuSize.width	= temp;
+						}
+						else if (temp < MenuSize.height)
+							MenuSize.height		= temp;
+					}
+					else MenuSize		= CGSizeFromString(MenuSizeStr);
+				}
+			}
+			else	NSAssert(false, @"Unknown allignment");
+		}
+		else if (MenuSizeStr)
+			MenuSize				= CGSizeFromString(MenuSizeStr);
+
+		if (MenuSizeStr)
+		{
+			NSAssert((MenuSize.width != 0) && (MenuSize.height), @"Warning 0 menu area");
+			Menu.boundaryRect			= CGRectMake(Menu.position.x - MenuSize.width  * Menu.anchorPoint.x,
+													 Menu.position.y - MenuSize.height * Menu.anchorPoint.y, 
+													 MenuSize.width, MenuSize.height);
+		}
+#ifdef SHOW_MENU_AREA
+		if (MenuSizeStr)
+		{
+			CCSprite	*PlaceHolder	= [ColoredSquareSprite squareWithColor: ccc4(0, 128, 0, 128) size: Menu.boundaryRect.size];
+			PlaceHolder.position		= Menu.boundaryRect.origin;
+			PlaceHolder.anchorPoint		= CGPointZero;
+			[Layer addChild: PlaceHolder z: 1000];
+		}
+		Menu.debugDraw			= true;
+#endif
+	}
+}
+
+//chiamato alla fine delle animazioni sulla scena, le animazioni con durata infinita non sono considerate
+-(void)animationsEnd
+{}
+
+//gestione tocchi, mouse, accellerometro, tastiera presa dal Layer
+#ifdef __IPHONE_OS_VERSION_MAX_ALLOWED
+-(NSInteger) touchDelegatePriority
+{
+	return 0;
+}
+
+-(void) setIsAccelerometerEnabled:(bool)enabled
+{
+	if( enabled != isAccelerometerEnabled_ ) {
+		isAccelerometerEnabled_ = enabled;
+		if( isRunning_ ) {
+			if( enabled )
+				[[UIAccelerometer sharedAccelerometer] setDelegate:self];
+			else
+				[[UIAccelerometer sharedAccelerometer] setDelegate:nil];
+		}
+	}
+}
+
+-(void) setIsStandardTouchEnabled:(bool)enabled
+{
+	if( isStandardTouchEnabled_ != enabled ) {
+		isStandardTouchEnabled_ = enabled;
+		if( isRunning_ ) {
+			if( enabled )
+				[self registerWithTouchDispatcher];
+			else
+				[[CCTouchDispatcher sharedDispatcher] removeDelegate:self];
+		}
+	}
+}
+
+-(void) setIsTargetedTouchEnabled:(bool)enabled
+{
+	if( isTargetedTouchEnabled_ != enabled ) {
+		isTargetedTouchEnabled_ = enabled;
+		if( isRunning_ ) {
+			if( enabled )
+				[self registerWithTouchDispatcher];
+			else
+				[[CCTouchDispatcher sharedDispatcher] removeDelegate:self];
+		}
+	}
+}
+
+-(void)registerWithTouchDispatcher
+{
+	NSAssert(!isStandardTouchEnabled_ || !isTargetedTouchEnabled_, @"Cannot use both Standard and Targeted touch mode");
+	if (isStandardTouchEnabled_)
+		[[CCTouchDispatcher sharedDispatcher] addStandardDelegate:self priority: [self touchDelegatePriority]];
+	else if (isTargetedTouchEnabled_)
+		[[CCTouchDispatcher sharedDispatcher] addTargetedDelegate:self priority: [self touchDelegatePriority] swallowsTouches:YES];
+}
+
+-(void)ccTouchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+	NSAssert(false, @"You MUST override ccTouchesBegan:withEvent: to use Standatd Touch mode");
+}
+
+-(BOOL)ccTouchBegan:(UITouch *)touch withEvent:(UIEvent *)event
+{
+	NSAssert(false, @"You MUST override ccTouchBegan:withEvent: to use Targeted Touch mode");
+	return false;
+}
+
+#elif defined(__MAC_OS_X_VERSION_MAX_ALLOWED)
+
+#pragma mark CCLayer - Mouse & Keyboard events
+
+-(NSInteger) mouseDelegatePriority
+{
+	return 0;
+}
+
+-(bool) isMouseEnabled
+{
+	return isMouseEnabled_;
+}
+
+-(void) setIsMouseEnabled:(bool)enabled
+{
+	if( isMouseEnabled_ != enabled ) {
+		isMouseEnabled_ = enabled;
+		
+		if( isRunning_ ) {
+			if( enabled )
+				[[CCEventDispatcher sharedDispatcher] addMouseDelegate:self priority:[self mouseDelegatePriority]];
+			else
+				[[CCEventDispatcher sharedDispatcher] removeMouseDelegate:self];
+		}
+	}
+}
+
+-(NSInteger) keyboardDelegatePriority
+{
+	return 0;
+}
+
+-(bool) isKeyboardEnabled
+{
+	return isKeyboardEnabled_;
+}
+
+-(void) setIsKeyboardEnabled:(bool)enabled
+{
+	if( isKeyboardEnabled_ != enabled ) {
+		isKeyboardEnabled_ = enabled;
+		
+		if( isRunning_ ) {
+			if( enabled )
+				[[CCEventDispatcher sharedDispatcher] addKeyboardDelegate:self priority:[self keyboardDelegatePriority] ];
+			else
+				[[CCEventDispatcher sharedDispatcher] removeKeyboardDelegate:self];
+		}
+	}
+}
+#endif // Mac
+
+-(void) onEnter
+{
+#ifdef __IPHONE_OS_VERSION_MAX_ALLOWED
+	// register 'parent' nodes first
+	// since events are propagated in reverse order
+	if (isTargetedTouchEnabled_ || isStandardTouchEnabled_)
+		[self registerWithTouchDispatcher];
+	
+#elif defined(__MAC_OS_X_VERSION_MAX_ALLOWED)
+	if( isMouseEnabled_ )
+		[[CCEventDispatcher sharedDispatcher] addMouseDelegate:self priority:[self mouseDelegatePriority]];
+	
+	if( isKeyboardEnabled_)
+		[[CCEventDispatcher sharedDispatcher] addKeyboardDelegate:self priority:[self keyboardDelegatePriority]];
+#endif
+
+	if (!loaded)
+		[self reloadScene];
+	if ((ConfigurationContent) && (!MemoryBehaviour.KeepConfigurationContent))
+	{
+		[ConfigurationContent release];
+		ConfigurationContent	= nil;
+		[IncludedFiles release];
+		IncludedFiles			= nil;
+	}	
+	
+	// then iterate over all the children
+	[super onEnter];
+}
+
+// issue #624.
+// Can't register mouse, touches here because of #issue #1018, and #1021
+-(void) onEnterTransitionDidFinish
+{
+#ifdef __IPHONE_OS_VERSION_MAX_ALLOWED
+	if( isAccelerometerEnabled_ )
+		[[UIAccelerometer sharedAccelerometer] setDelegate:self];
+#endif
+
+	if ([BackgroundMusic isEqualToString: @""])//se il suono è una stringa vuota non cambio quello in esecuzione
+		[[SoundManager sharedManager] stopBackgroundMusic];
+	else if (BackgroundMusic != nil)
+		[[SoundManager sharedManager] playBackgroundMusic: BackgroundMusic];
+
+	if (delay == 0)
+			[self runAction: [CCCallFunc actionWithTarget: self selector: @selector(animationsEnd)]];
+	else	[self runAction: [CCSequence actionOne: [CCDelayTime actionWithDuration: delay]
+											   two: [CCCallFunc actionWithTarget: self selector: @selector(animationsEnd)]]];
+	[super onEnterTransitionDidFinish];
+}
+
+-(void) onExit
+{
+#ifdef __IPHONE_OS_VERSION_MAX_ALLOWED
+	if( isStandardTouchEnabled_ || isTargetedTouchEnabled_ )
+		[[CCTouchDispatcher sharedDispatcher] removeDelegate:self];
+
+	if( isAccelerometerEnabled_ )
+		[[UIAccelerometer sharedAccelerometer] setDelegate:nil];
+
+#elif defined(__MAC_OS_X_VERSION_MAX_ALLOWED)
+	if( isMouseEnabled_ )
+		[[CCEventDispatcher sharedDispatcher] removeMouseDelegate:self];
+
+	if( isKeyboardEnabled_ )
+		[[CCEventDispatcher sharedDispatcher] removeKeyboardDelegate:self];
+#endif
+
+	[super onExit];
+}
+
+-(void)setConfigurationFile: (NSString*)FileName
+{
+	if (![FileName isEqualToString: ConfigurationFile_])
+	{
+		NSAssert((!ConfigurationFile_) || (MemoryBehaviour.UseLazyLoad), @"Unable to switch configuration file if the class cannot use lazyLoad");
+		[self unloadScene];
+		[ConfigurationContent release];
+		ConfigurationContent	= nil;
+		[ConfigurationFile_	release];
+		ConfigurationFile_		= [FileName retain];
+		[IncludedFiles release];
+		IncludedFiles			= nil;
+		if (FileName)
+		{
+			if ([self isRunning])//è già stato chiamato onEnter
+			{
+				[self reloadScene];
+				if (!MemoryBehaviour.KeepConfigurationContent)
+				{
+					[ConfigurationContent release];
+					ConfigurationContent	= nil;
+					[IncludedFiles release];
+					IncludedFiles			= nil;
+				}				
+			}
+		}
+	}
+}
+
+-(TMemoryBehaviour) defaultMemoryBehaviour
+{
+	TMemoryBehaviour	temp;
+	temp.LoadOnCreate				= true;	//la scena è completamente caricata alla creazione
+	temp.UnloadOnHide				= false;//la scena non viene scaricata alla sparizione
+	temp.DeallocateOnMemoryWarning	= true;	//la scena viene distrutta in caso di un memory warning
+	temp.KeepConfigurationContent	= false;//il contenuto del file di configurazione è cancellato all'onEnter
+	return temp;
+}
+
+-(bool)receivedMemoryWarning
+{
+	return MemoryBehaviour.DeallocateOnMemoryWarning;
+}
+
+-(void)unloadScene
+{
+	if ((!loaded) || (!MemoryBehaviour.UseLazyLoad) || (isRunning_))
+		return;//se la scena non supporta lo scaricamento o attualmente è mostrata non la scarica
+	NSLog(@"Unloading scene %@", ConfigurationFile_);
+	[self removeAllChildrenWithCleanup: true];
+	loaded	= false;
+	[self stopAllActions];
+	[BackgroundMusic release];
+	BackgroundMusic	= nil;
+}
+
+-(void)reloadScene
+{
+	if (!ConfigurationFile_)	return;
+	NSLog(@"Reloading scene %@", ConfigurationFile_);
+	if (!ConfigurationContent)
+	{
+		ConfigurationContent	= [NSMutableDictionary dictionaryWithContentsOfFile: [CCFileUtils fullPathFromRelativePath: ConfigurationFile_]];
+		[ConfigurationContent retain];
+	}
+
+	delay					= 0;
+	FirstLayer				= true;
+	useVertexZ				= false;
+
+	[[ANCAnimationCache sharedAnimationCache] lockOutClean];
+	[self ParseDictionary: ConfigurationContent Parent: self];
+	[[ANCAnimationCache sharedAnimationCache] unlockClean];
+
+	BackgroundMusic	= [ConfigurationContent localizedObjectForKey: @"backgroundmusic"];
+	[BackgroundMusic retain];
+
+	loaded	= true;
+}
+
+-(void)hideNode
+{
+	[super hideNode];
+	if ((loaded) &&	(MemoryBehaviour.UseLazyLoad) && (MemoryBehaviour.UnloadOnHide))
+		[self unloadScene];
+}
+
+-(void)showNode
+{
+	if (!loaded)
+	{
+		[self reloadScene];
+		if (!MemoryBehaviour.KeepConfigurationContent)
+		{
+			[ConfigurationContent release];
+			ConfigurationContent	= nil;
+			[IncludedFiles release];
+			IncludedFiles			= nil;
+		}	
+	}
+	[super showNode];
+}
+
+@synthesize isAccelerometerEnabled	= isAccelerometerEnabled_;
+@synthesize isStandardTouchEnabled	= isStandardTouchEnabled_;
+@synthesize isTargetedTouchEnabled	= isTargetedTouchEnabled_;
+@synthesize ConfigurationFile;
+
+-(bool)UseLazyLoad								{	return MemoryBehaviour.UseLazyLoad;					}
+-(void)setUseLazyLoad:(bool)Value				{	MemoryBehaviour.UseLazyLoad					= Value;}
+-(bool)LoadOnCreate								{	return MemoryBehaviour.LoadOnCreate;				}
+-(bool)UnloadOnHide								{	return MemoryBehaviour.UnloadOnHide;				}
+-(void)setUnloadOnHide:(bool)Value				{	MemoryBehaviour.UnloadOnHide				= Value;}
+-(bool)DeallocateOnMemoryWarning				{	return MemoryBehaviour.DeallocateOnMemoryWarning;	}
+-(void)setDeallocateOnMemoryWarning:(bool)Value	{	MemoryBehaviour.DeallocateOnMemoryWarning	= Value;}
+-(bool)KeepConfigurationContent					{	return MemoryBehaviour.KeepConfigurationContent;	}
+-(void)setKeepConfigurationContent:(bool)Value	{	MemoryBehaviour.KeepConfigurationContent	= Value;}
+@end
+
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+@implementation CCMenuItem (compareItemWithItem)
+-(int)compareItemWithItem: (CCMenuItem*) Item
+{
+	if		(self.tag == Item.tag)	return NSOrderedSame;
+	else if	(self.tag < Item.tag)	return NSOrderedAscending;
+	return NSOrderedDescending;
+}
+@end

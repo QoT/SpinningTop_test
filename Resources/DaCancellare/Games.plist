@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>world1</key>
+	<dict>
+		<key>extradata</key>
+		<dict/>
+		<key>locked</key>
+		<false/>
+		<key>stages</key>
+		<array>
+			<dict>
+				<key>completed</key>
+				<false/>
+				<key>name</key>
+				<string>Primo</string>
+				<key>locked</key>
+				<false/>
+				<key>stars</key>
+				<string></string>
+				<key>points</key>
+				<string></string>
+			</dict>
+		</array>
+	</dict>
+</dict>
+</plist>

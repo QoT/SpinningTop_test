@@ -1,0 +1,499 @@
+//
+//  GameConfig.h
+//  Farm Attack
+//
+//  Created by mad4chip on 30/01/11.
+//  Copyright __MyCompanyName__ 2011. All rights reserved.
+//
+
+#ifndef __GAME_CONFIG_H
+#define __GAME_CONFIG_H
+
+//
+// Supported Autorotations:
+//		None,
+//		UIViewController,
+//		CCDirector
+//
+#define kGameAutorotationNone 0
+#define kGameAutorotationCCDirector 1
+#define kGameAutorotationUIViewController 2
+
+#define GAME_AUTOROTATION kGameAutorotationUIViewController
+/*
+//
+// Define here the type of autorotation that you want for your game
+//
+
+// 3rd generation and newer devices: Rotate using UIViewController. Rotation should be supported on iPad apps.
+// TIP:
+// To improve the performance, you should set this value to "kGameAutorotationNone" or "kGameAutorotationCCDirector"
+#if defined(__ARM_NEON__) || TARGET_IPHONE_SIMULATOR
+#define GAME_AUTOROTATION kGameAutorotationUIViewController
+
+// ARMv6 (1st and 2nd generation devices): Don't rotate. It is very expensive
+#elif __arm__
+#define GAME_AUTOROTATION kGameAutorotationNone
+
+
+// Ignore this value on Mac
+#elif defined(__MAC_OS_X_VERSION_MAX_ALLOWED)
+#else
+#error(unknown architecture)
+#endif
+*/
+//******************************************************************************************/
+//******************************************************************************************/
+//******************************************************************************************/
+//0.0f => alpha completo, 0.25f => alpha poco duro minimizza il problema dell'alone 
+#define	ALPHA_TEST_REF			0.0f
+#define	COLLISION_ALGORITHM		OPTIMIZED_COLLISION
+//#define	COLLISION_TEST
+//#define	DISABLE_BATCH
+//#define	SHOW_MENU_AREA
+//#define	SHOW_BASE
+//#define	ENABLE_RETINA
+#define	SHOW_FPS
+#define	BOSS_DEBUG
+//#define	SPRITE_ALLOCATION_TEST
+
+//#define		FIRST_SCENE	STAGE_MENU
+//#define		FIRST_SCENE	INTRO_MENU
+#define		FIRST_SCENE	MAIN_MENU
+
+#define		UNLOCK_ITEMS_BAR
+#define		UNLOCK_ARTBOOK
+#define		UNLOCK_SHOP
+//GameDataObject plist check
+#define DATAOBJECT_CHECK_PLIST			@"PataccheMenu.plist"
+#define DATAOBJECT_CHECK_DICTIONARY		@"PATACCHE"
+#define LEADERBOARD_NAME				@"Points"
+
+//
+// Scenes definitions
+//
+
+#define REPLACE_CURRENT_SCENE	1//questi tre flag sono esclusivi
+#define PUSH_CURRENT_SCENE		2
+#define FLUSH_SCENE_STACK		3
+#define	PAUSE_SCENE				4
+#define	PRELOAD_SCENE			8
+
+#define MAX_VOLUME				1
+#define DEFAULT_EFFECT_VALUE	0.5
+#define	DEFAULT_MUSIC_VALUE		0.5
+
+#define DEFAULT_END_GAME_DELAY	5
+
+#define REFERENCESCREENSIZE		480
+//ATTENZIONE gli ID devono coincidere con quelli nel file MainMenu.plist
+#define MAIN_MENU				0
+#define SHOP_MENU				1
+#define MINIGAMES_MENU			2
+#define CREDITI_MENU			3
+#define SURVIVAL_MENU			4
+#define OPZIONI_MENU			5
+#define PATACCHE_MENU			6
+#define BESTIARIO_MENU			7
+#define ARTBOOK_MENU			8
+#define STAGE_MENU				9
+#define INTRO_MENU				10
+
+#define DRAW_MENU				12
+#define DRIVETHESCREW_MENU		13
+#define CLEANTHEFLOOR_MENU		14
+#define BREAKTHEEGG_MENU		15
+#define CUTTHEGRASS_MENU		16
+#define CROSSTHEROAD_MENU		17
+
+#define TUTORIAL_TAG			-11
+//non appartiene a nessun gruppo per permettere di caricare i mi
+#define INSTAGEMINIGAMES		11
+
+#define LAST_STAGE              20
+#define PREVIOUS_SCENE			1000
+#define MENU_GROUP							\
+[NSNumber numberWithInt: MAIN_MENU]
+/*
+,		\
+[NSNumber numberWithInt: MINIGAMES_MENU],	\
+[NSNumber numberWithInt: CREDITI_MENU],		\
+[NSNumber numberWithInt: OPZIONI_MENU],		\
+[NSNumber numberWithInt: PATACCHE_MENU],	\
+[NSNumber numberWithInt: INTRO_MENU],		\
+[NSNumber numberWithInt: BESTIARIO_MENU]
+*/
+#define ARTBOOKMENU_GROUP					\
+[NSNumber numberWithInt: ARTBOOK_MENU]
+
+#define STAGE_GROUP							\
+[NSNumber numberWithInt: STAGE_MENU],		\
+[NSNumber numberWithInt: SHOP_MENU],		\
+[NSNumber numberWithInt: OPZIONI_MENU]
+
+#define	SKIP_ANIMATION		2		//salta l'animazione della morte
+#define	SKIP_ONHIT			4		//salta l'animazione onhit alla morte
+#define	SKIP_TINT			8		//salta il tint alla morte
+#define	SKIP_FADE			16		//non và in fade out se manca l'animazione della morte
+#define	SKIP_EXPLOSION		32		//salta l'esplosione
+#define	SKIP_BONUS			64		//non lascia il bonus alla morte
+#define	SKIP_DEAD			128		//non chiama dead o updateLifeAnimation ATTENZIONE usare con cautela
+#define	SKIP_ALL_BUT_DEAD	126		//salta tutto tranne run ed aggiunge solo i punti e chiama dead o updateLifeAnimation
+#define	USE_COMBO			256
+
+#define	DONOT_ADD_POINTS	512		//non aggiunge i punti
+#define	SKIP_RUN			1024	//non fà partire l'azione permettendo di agirci sopra
+
+#define LOADING_PLIST			@"Loading.plist"
+#define MAIN_MENU_PLIST			@"MainMenu.plist"
+#define BESTIARIO_MENU_PLIST	@"BestiarioMenu.plist"
+#define PATACCHE_MENU_PLIST		@"PataccheMenu.plist"
+#define PAUSE_MENU_PLIST		@"PausaMenu.plist"
+#define GAMEOVER_MENU_PLIST		@"GameOverMenu.plist"
+#define INTRO_MENU_PLIST		@"VideoIntro.plist"
+#define NEGOZIO_MENU_PLIST		@"NegozioMenu.plist"
+#define CREDIT_MENU_PLIST		@"CreditMenu.plist"
+#define OPTION_MENU_PLIST		@"OptionMenu.plist"
+#define ARTBOOK_MENU_PLIST		@"ArtbookMenu.plist"
+#define MINIGAMES_MENU_PLIST	@"MiniGamesMenu.plist"
+#define STAGE_MENU_PLIST		@"Stage.plist"
+#define ITEM_BAR_PLIST			@"TrapBar.plist"
+#define SPLASH_SCREEN_PLIST		@"splash_level.plist"
+#define BEN_FATTO_PLIST			@"BenFatto.plist"
+#define INTRO_PLIST				@"Intro.plist"
+
+#define DRAW_PLIST				@"DrawMenu.plist"
+
+#define DRIVETHESCREW_PLIST		@"DriveTheScrew.plist"
+#define CLEANTHEFLOOR_PLIST		@"CleanTheFloor.plist"
+#define BREAKTHEEGG_PLIST		@"BreakTheEgg.plist"
+#define CUTTHEGRASS_PLIST		@"CutTheGrass.plist"
+#define CROSSTHEROAD_PLIST		@"CrossTheRoad.plist"
+
+//
+//	Game definitions
+//
+
+#define	LEFT	true
+#define	RIGHT	false
+#define	DEFAULT_FRAME_DELAY	((float)1/30)
+
+#define	EARTHQUAKE_WIDTH		30
+#define	EARTHQUAKE_DURATION		3.0f
+
+//Bestiario
+#define BESTIARIO_OBJECTS   \
+@"Geremy",					\
+@"Moglie",					\
+@"Pannocchia"
+
+//Negozio
+/*
+#define DEFAULT_SHOP_OBJECTS   \
+@"Artbook1",	 		\
+@"Artbook2",		 	\
+@"Artbook3",			\
+@"Burrone",           	\
+@"Fuoco",				\
+@"Spaventapasseri",     \
+@"Filo elettrificato",	\
+@"Pianta",				\
+@"Medikit"
+//*/
+
+//impostazioni attacchi
+#define	WEAPONS_NAMES_STRINGS		\
+@"DDT",							/*0*/\
+@"Animale",						/*1*/\
+@"Erogatore",					/*2*/\
+@"Guscio",						/*3*/\
+@"Esplosione segnaposto",		/*4*/\
+@"Esplosione",					/*5*/\
+@"Morso fattore",				/*6*/\
+@"Bonus",						/*7*/\
+@"Raggio",						/*8*/\
+@"Bolla",						/*9*/\
+@"Nube tossica",				/*10*/\
+@"Tocco"						/*11*/
+#define WEAPONS_NUM					12
+
+#define	POINTS_NAMES_STRINGS		\
+@"Punti",						/*0*/\
+@"Gusci",						/*1*/\
+@"Soldi",						/*2*/\
+@"Fuoco",						/*3*/\
+@"Spaventapasseri",				/*4*/\
+@"Burrone",						/*5*/\
+@"Filo elettrificato",			/*6*/\
+@"Pianta",						/*7*/\
+@"Medikit"						/*8*/
+
+#define SUBTRACT_SHELL	(int[POINTS_NUM]){0, -1,  0, 0, 0, 0, 0, 0, 0}
+#define SUBTRACT_PLANT	(int[POINTS_NUM]){0,  0, -1, 0, 0, 0, 0, 0, 0}
+
+#define POINTS_INDEX	0	//indice di Points usato per il conteggio dei punti
+#define SHELL_INDEX		1	//indice di Points usato per il conteggio dei gusci residui
+#define MONEY_INDEX		2	//indice di Points usato per il conteggio dei soldi
+#define PLANTS_INDEX	7	//indice di Points usato per il conteggio delle piante che possono essere piantate
+
+#define ITEMS_NUM			6//6 possibili items
+#define BOSS_HIDDEN_ITEMS_NUM	4//quando si affronta un boss non possono essere usati alcunii potenziamenti
+#define POINTS_OFFSET		3//3 punteggi Punti, Gusci, Semi
+#define POINTS_NUM			(ITEMS_NUM + POINTS_OFFSET)
+
+//@"Pannocchia",		
+#define	ENTITY_TO_ALLWAYS_PRELOD	\
+@"Pannocchia",		\
+@"burrone",			\
+@"filo_elettrificato",\
+@"fuoco",			\
+@"spaventapasseri",	\
+@"Bonus_Chicco",	\
+@"Bonus_Chiccone",	\
+@"Pacco_armi",		\
+@"Bonus_Guscio",	\
+@"Bonus_Sacchetto",	\
+@"Bullet",			\
+@"Cubetto",			\
+@"DDT_Bullet",		\
+@"Granata",			\
+@"Guscio",			\
+@"Lanciafiamme",	\
+@"Raggio_gelante",	\
+@"ventosa"
+
+#define	ENTITY_GROUPS_NUM	6
+#define	PLANTS_GROUP		0//piante vive o ferite
+#define	DEAD_PLANTS_GROUP	1//piante morte
+#define	ANIMALS_GROUP		2//tutti gli animali
+#define	BULLETS_GROUP		3//colpi e gusci
+#define	FRIENDS_GROUP		4//geremia e trappole
+#define	BONUS_GROUP			5//pacchi e bonus
+
+#define GROUP_NAMES_STRINGS	\
+@"piante",				/*0*/\
+@"piante_morte",		/*1*/\
+@"animali",				/*2*/\
+@"colpi",				/*3*/\
+@"amici",				/*4*/\
+@"bonus"				/*5*/
+
+
+#define DDT_ATTACK						0
+#define ANIMAL_ATTACK					1
+#define BREAK_DDT_ATTACK				2
+#define SHELL_ATTACK					3
+#define EXPLOSION_ATTACK_PLACEHOLDER	4
+#define EXPLOSION_ATTACK				5
+#define BITE_ATTACK						6
+#define BONUS_ATTACK					7
+#define CHILLING_ATTACK					8
+#define BUBBLE_ATTACK					9
+#define TOXIC_CLOUD_ATTACK				10
+#define	ITEMS_DROP_AREA					CGRectMake(140,60,270, 205)
+#define	ITEMS_DROP_AREA_IPAD			CGRectMake(250,195,700,505)
+#define	ITEMS_DROP_AREA_COLOR			ccc4(128,0,0,128)
+#define	ITEM_SHADOW_VERTEXZ				-1
+#define	DISABLED_ITEM_OPACITY			128
+#define	ITEM_SPEED						400
+
+
+// impostazioni interfaccia
+#define	BUTTONS_NUM						2
+
+#define	MAX_BLUE_LEVEL					128
+#define	GIFT_BOX_POSITION				ccp(265,87)
+#define GIFT_BOX_POSITION_IPAD			ccp(556,204)
+#define	GIFT_BOX_DROP_RECT				CGRectMake(90,100,355, 190)
+#define	GIFT_BOX_DROP_RECT_IPAD			CGRectMake(252,215,630, 442)
+#define	GIFT_MIN_LAUNCH_HEIGHT			20
+#define	GIFT_DIST_PER_ROTATION			100
+#define	STAGE_NAME						@"Stage%u.plist"
+
+#define VERTEXZ_ONBOTTOM				-1
+#define VERTEXZ_ONTOP					0.6
+#define CONTROLLER_VERTEXZ				VERTEXZ_ONTOP
+#define CONTROLLER_OPACITY				64
+#define ACTIVE_CONTROLLER_OPACITY		32
+
+
+#define ADD_MONEY_SPEED					600
+#define NIGHT_FALLING_SPEED				40
+#define SUNSET_TAG						30
+
+//default beaviour on hit
+#define	TINT_DURATION					0.2
+#define	TINT_COMPONENTS					red: 0 green: -128 blue: -128
+
+#define MOVEMENT_TAG					70
+#define RANDOM_TIME_PERC				0.2
+
+#define DYING_FADE_TIME					0.25
+#define BONUS_FADE_TIME					0.25
+
+#define MIN_ANIMAL_YCOORD		48	//GEREMY_MOVE_AREA.origin.y
+#define MIN_ANIMAL_YCOORD_IPAD	140
+
+#define MAX_ANIMAL_YCOORD		290
+#define MAX_ANIMAL_YCOORD_IPAD	650
+
+
+#define	FLYING_WIDTH			100
+#define	FLYING_WIDTH_IPAD		200
+
+#define	FLYING_WALKLENGTH		200
+#define	FLYING_WALKLENGTH_IPAD	400
+
+#define FLYING_RECT				CGRectMake(90, 40, 360, 250)
+#define FLYING_RECT_IPAD		CGRectMake(172,172,796, 510)
+
+#define SHOW_FOREST_TIME		2
+	
+#define SHOW_FOREST_SHIFT		-100
+#define SHOW_FOREST_SHIFT_IPAD	-200
+
+#define SHOW_FOREST_DELAY		2
+
+#define PLANT_COL_SPACING		40
+#define PLANT_COL_SPACING_IPAD	80 
+
+#define PLANT_COL_OFFSET		30
+#define PLANT_COL_OFFSET_IPAD	50 //60
+
+#define PLANT_COL_NUM			2
+#define PLANT_ROW_NUM			5
+
+#define PLANT_ROW_SPACING		54
+#define PLANT_ROW_SPACING_IPAD	108
+
+#define PLANT_ROW_OFFSET		58
+#define PLANT_ROW_OFFSET_IPAD	215
+
+#define PLANT_BORN_DELAY		0.4
+#define BERRY_NUM				5
+#define BERRY_DELAY				0.1
+#define BERRY_DROP_RECT			CGRectMake(100, 30,  170, 270)
+#define BERRY_DROP_RECT_IPAD    CGRectMake(200, 173,  420, 400)
+
+//scritte, pausa				-1
+//GameLayer						0
+#define STAGE_BACKGROUND_Z		-1000	//figli di GameLayer
+#define PARTICLE_MANAGER_LAYER	120		//figli di GameLayer DEVE stare sotto il foreground
+#define STAGE_FOREGROUND_Z		130		//figli di GameLayer
+
+#define	CONTROLLER_LAYER		3		//200
+
+
+#define LAYER_OVER_STAGE_Z		300
+#define ITEMS_BAR_HEIGHT		50
+#define ITEMS_BAR_HEIGHT_IPAD   62
+#define ITEMS_BAR_MOVE_TIME		1
+#define ITEMS_DONE				-10
+
+#define ANIMALS_LAYER			50
+#define COMBO_LABELS_Z			200
+
+#define	GEREMY_START_POSITION	ccp(ScreenSize.width / 2, ScreenSize.height / 2)
+#define	GEREMY_ENTER_POSITION	ccp(0, ScreenSize.height / 2)
+
+//staccionata	alta			44
+//staccionata	bassa			39
+//Geremy		width			38
+//Geremy		height			28
+//Geremy		offsetX			-130
+//Geremy		offsetY			6
+//Geremy		originalwidth	328
+//Geremy		originalheight	188
+
+										//130, 39-6
+#define	GEREMY_MOVE_AREA		CGRectMake(28, 48, ScreenSize.width - 85, ScreenSize.height - 63)//CGRectMake(130, 0, ScreenSize.width - 40, ScreenSize.height - 44)
+#define	GEREMY_MOVE_AREA_IPAD	CGRectMake(46, 170, ScreenSize.width, ScreenSize.height - 150)//CGRectMake(130, 0, ScreenSize.width - 40, ScreenSize.height - 44)
+
+#define	COLLISION_CHECK_INTERVAL	((float)2/30)
+#define	ANIMAL_GENERATION_INTERVAL	0.2
+
+#define	ILL_TIME				3
+#define	POISON_TIME				10
+
+#define MIN_DIGOUT_X			200
+#define MIN_DIGOUT_X_IPAD		400
+
+#define MAX_DIGOUT_X			((int)(ScreenSize.width) - 200)
+#define MAX_DIGOUT_X_IPAD		((int)(ScreenSize.width) - 400)
+
+
+#define RETARGETING_INTERVAL	2
+#define MAX_RETARGETING_ANGLE	(M_PI / 3)
+
+//#define EGG_DROP_RECT			CGRectMake(250, MIN_ANIMAL_YCOORD, 200 ,MAX_ANIMAL_YCOORD - MIN_ANIMAL_YCOORD)
+#define EGG_DROP_RECT			CGRectMake(250, MIN_ANIMAL_YCOORD, 200 - self.width, MAX_ANIMAL_YCOORD - MIN_ANIMAL_YCOORD)
+#define EGG_DROP_RECT_IPAD		CGRectMake(355, MIN_ANIMAL_YCOORD, 577, 535)
+
+#define EGG_EXPLOSION_MIN_TIME	30
+#define EGG_EXPLOSION_MAX_TIME	60
+#define ANIMALS_FROM_EGG	\
+@"Bruco",					\
+@"Ragno",					\
+@"Brucone_Giallo",			\
+@"Brucone_Rosso",			\
+@"Brucone_Verde",			\
+@"Cavalletta",				\
+@"Coccinella",				\
+@"Falena_candela",			\
+@"Falena_cuscino",			\
+@"Falena_ombrello",			\
+@"Farfalla",				\
+@"Grillo_Marrone",			\
+@"Grillo_Verde",			\
+@"Lombrico_cammina",		\
+@"Lumaca_gigante",			\
+@"Lumaca_media",			\
+@"Lumaca_piccola",			\
+@"Mosca",					\
+@"Scarafaggio",				\
+@"Scorpioncino",			\
+@"Vespa"
+
+
+#define	SPAVENTAPASSERI_FIRE_CHECK_INTERVAL	2
+#define	SPAVENTAPASSERI_WINDOW_HEIGHT		(self.height*2)
+#define	SPAVENTAPASSERI_FIRE_INTERVAL		0.2
+
+#define	SPAVENTAPASSERI_FIRE_OFFSET			ccp(67,-9)
+#define	SPAVENTAPASSERI_FIRE_OFFSET_IPAD	ccp(130,-18)
+
+//FifteenGame
+#define FIFTEENGAME_PLIST @"FifteenGame.plist"
+
+#define CAN_MOVE_UP 1
+#define CAN_MOVE_DOWN 2
+#define CAN_MOVE_RIGHT 3
+#define CAN_MOVE_LEFT 4
+
+#define SPEED 0.1
+#define SPACEX 3
+#define SPACEY 3
+
+//CardMemoryGame
+#define CARDMEMORYGAME_PLIST @"CardMemoryGame.plist"
+
+#define VIEW_TIME 4
+#define ERROR_TIME 0.7
+#define UNSORT_TIME 40
+
+//FindDifferencesGame
+
+#define FINDDIFFERENCESGAME_PLIST @"FindDifferencesGame.plist"
+
+//PuzzleGame
+#define PUZZLEGAME_PLIST @"PuzzleGame.plist"
+
+#define IMAGE_LEFT 0
+#define IMAGE_RIGHT 1
+#define IMAGE_DOWN 2
+#define IMAGE_UP 3
+
+//CrushCaterpillarGame
+#define CRUSHCATERPILLAR_PLIST @"CrushCaterpillarGame.plist"
+
+#endif // __GAME_CONFIG_H

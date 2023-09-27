@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>atlas</key>
+	<array/>
+	<key>include</key>
+	<string>MimiLandManager.plist</string>
+	<key>particlesystemmanager</key>
+	<string>4</string>
+	<key>matchtime</key>
+	<string>20</string>
+	<key>_backgroundmusic</key>
+	<string>MENU .caf</string>
+	<key>buttonclick</key>
+	<string>CLIC MENU.caf</string>
+	<key>fontname</key>
+	<string>Market Felt</string>
+	<key>fontsize</key>
+	<integer>30</integer>
+	<key>role</key>
+	<string>mainlayer</string>
+	<key>totalhitnum</key>
+	<string>12</string>
+	<key>eggpiecesparticle</key>
+	<string>particle_egg.plist</string>
+	<key>markerposition</key>
+	<string>{512, 384}</string>
+	<key>background</key>
+	<dict>
+		<key>image</key>
+		<string>break_egg_background.png</string>
+		<key>z</key>
+		<string>-1</string>
+		<key>visible</key>
+		<true/>
+	</dict>
+	<key>chick layer</key>
+	<dict>
+		<key>role</key>
+		<string>chick layer</string>
+		<key>layercolor</key>
+		<string>{0,0,0,0}</string>
+		<key>z</key>
+		<string>1</string>
+		<key>chick</key>
+		<dict>
+			<key>role</key>
+			<string>chick</string>
+			<key>image</key>
+			<string>break_egg_chick.png</string>
+			<key>z</key>
+			<string>1</string>
+		</dict>
+		<key>eyes</key>
+		<dict>
+			<key>role</key>
+			<string>eyes</string>
+			<key>image</key>
+			<string>0@eyes@BreakTheEggAnim.plist</string>
+			<key>z</key>
+			<string>2</string>
+		</dict>
+		<key>egg</key>
+		<dict>
+			<key>role</key>
+			<string>egg</string>
+			<key>image</key>
+			<string>0@egg@BreakTheEggAnim.plist</string>
+			<key>z</key>
+			<string>3</string>
+		</dict>
+		<key>fracture</key>
+		<dict>
+			<key>role</key>
+			<string>fracture</string>
+			<key>image</key>
+			<string>0@fracture@BreakTheEggAnim.plist</string>
+			<key>z</key>
+			<string>4</string>
+		</dict>
+	</dict>
+	<key>nest</key>
+	<dict>
+		<key>role</key>
+		<string>nest</string>
+		<key>image</key>
+		<string>break_egg_nest_top.png</string>
+		<key>z</key>
+		<string>5</string>
+	</dict>
+	<key>mimi</key>
+	<dict>
+		<key>z</key>
+		<string>1</string>
+		<key>falldistance</key>
+		<string>145</string>
+		<key>falldistancetol</key>
+		<string>0.1</string>
+		<key>ignoreonfall</key>
+		<true/>
+		<key>startrect</key>
+		<string>{{412, 284}, {200, 200}}</string>
+	</dict>
+	<key>countdown</key>
+	<dict>
+		<key>position_value</key>
+		<string>{240,12}</string>
+		<key>anchor_value</key>
+		<string>{0.5,0.5}</string>
+		<key>z_value</key>
+		<string>100</string>
+		<key>image_name</key>
+		<string>Barra_Energia-1.png</string>
+	</dict>
+</dict>
+</plist>

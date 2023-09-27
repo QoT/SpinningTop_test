@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "-[CCNode setVertexZ:]:CCNode.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "(id)0x10851B10">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[ANCMenuButton applyOnSelectTransform]:ANCMenuButton.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[CCTextureAtlas drawNumberOfQuads:fromIndex:]:CCTextureAtlas.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "[StageManager Manager]">
+            </PersistentString>
+            <PersistentString
+               value = "[CCSpriteFrameCache sharedSpriteFrameCache]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "+[DrawableSprite newDrawableSpriteWithDictionary:]:DrawableSprite.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[MaskedSprite applyMask]:SpriteMask.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[ANCScene onEnter]:ANCScene.m">
+      </ContextState>
+      <ContextState
+         contextName = "+[MimiTop newTopFromDictionary:]:MimiTop.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[EAGLView swapBuffers]:EAGLView.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "[StageManager Manager]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[DrawableSprite clearSprite]:DrawableSprite.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "(id)0x617f2c0">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[CCParticleSystemQuad draw]:CCParticleSystemQuad.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "[StageManager Manager]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[ANCScene reloadScene]:ANCScene.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[ANCScene setConfigurationFile:]:ANCScene.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[CCDirectorIOS drawScene]:CCDirectorIOS.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "[[StageManager Manager] Geremy]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[Boss_Mosca newBullet:]:Boss_Mosca.m">
+      </ContextState>
+      <ContextState
+         contextName = "+[DrawingBrush newDrawingBrushWithDictionary:]:DrawingBrush.m">
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>
